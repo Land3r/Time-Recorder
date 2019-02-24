@@ -6,7 +6,12 @@
         style="width:30vw;max-width:150px;"
       >
     </p>
-    <p class="text-faded">Sorry, nothing here...<strong>(404)</strong></p>
+    <p class="text-faded">
+      <v-scrollin :speed="60" :misses="1">
+        Sorry, nothing here...
+      </v-scrollin>
+      <strong>(404)</strong>
+    </p>
     <q-btn
       color="secondary"
       style="width:200px;"
@@ -16,7 +21,13 @@
 </template>
 
 <script>
+
+import VSCrollin from 'vue-scrollin'
+
 export default {
-  name: 'Error404'
+  name: 'Error404',
+  components: {
+    'v-scrollin': VSCrollin
+  }
 }
 </script>
