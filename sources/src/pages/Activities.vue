@@ -6,78 +6,79 @@
         <q-btn round color="positive" icon="add" class="float-right" @click="addProjectModalShown = true"/>
       </h1>
     </div>
-
-    <div
-      v-for="project in projects"
-      :key="project.id"
-    >
-      <q-toolbar
-        :class="project.bgcolor"
-        class="text-white shadow2"
+    <div class="row">
+      <div class="col-md-4 q-pa-xs"
+        v-for="project in projects"
+        :key="project.id"
       >
-        <q-toolbar-title>{{project.name}}</q-toolbar-title>
-        <q-btn flat round dense icon="more_vert">
-          <q-menu
-            :class="project.bgcolor"
-            class="text-white"
-            transition-show="jump-down"
-            transition-hide="jump-up"
-          >
-            <q-list style="min-width: 200px">
-              <q-item clickable>
-                <q-item-section avatar>
-                  <q-icon name="edit" />
-                </q-item-section>
-                <q-item-section>Modifier</q-item-section>
-              </q-item>
-              <q-item clickable>
-                <q-item-section avatar>
-                  <q-icon name="add" />
-                </q-item-section>
-                <q-item-section>Ajouter activitée</q-item-section>
-              </q-item>
-              <q-item clickable>
-                <q-item-section avatar>
-                  <q-icon name="list" />
-                </q-item-section>
-                <q-item-section>Modifier activitées</q-item-section>
-              </q-item>
-              <q-separator />
-              <q-item clickable @click="showConfirmDeleteProjectModal(project.name)">
-                <q-item-section avatar>
-                  <q-icon name="delete" />
-                </q-item-section>
-                <q-item-section>Supprimer</q-item-section>
-              </q-item>
-            </q-list>
-          </q-menu>
-        </q-btn>
-      </q-toolbar>
-
-      <q-list bordered>
-        <q-item
-          v-for="activity in project.activities"
-          :key="activity.id"
-          class="q-my-sm"
-          clickable
-          v-ripple
+        <q-toolbar
+          :class="project.bgcolor"
+          class="text-white shadow2"
         >
-          <q-item-section top avatar>
-            <q-avatar
-              :color=project.color
-              :icon=activity.icon
-              :text-color=project.fontcolor
-            />
-          </q-item-section>
+          <q-toolbar-title>{{project.name}}</q-toolbar-title>
+          <q-btn flat round dense icon="more_vert">
+            <q-menu
+              :class="project.bgcolor"
+              class="text-white"
+              transition-show="jump-down"
+              transition-hide="jump-up"
+            >
+              <q-list style="min-width: 200px">
+                <q-item clickable>
+                  <q-item-section avatar>
+                    <q-icon name="edit" />
+                  </q-item-section>
+                  <q-item-section>Modifier</q-item-section>
+                </q-item>
+                <q-item clickable>
+                  <q-item-section avatar>
+                    <q-icon name="add" />
+                  </q-item-section>
+                  <q-item-section>Ajouter activitée</q-item-section>
+                </q-item>
+                <q-item clickable>
+                  <q-item-section avatar>
+                    <q-icon name="list" />
+                  </q-item-section>
+                  <q-item-section>Modifier activitées</q-item-section>
+                </q-item>
+                <q-separator />
+                <q-item clickable @click="showConfirmDeleteProjectModal(project.name)">
+                  <q-item-section avatar>
+                    <q-icon name="delete" />
+                  </q-item-section>
+                  <q-item-section>Supprimer</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
+        </q-toolbar>
 
-          <q-item-section>
-            <q-item-label>{{ activity.name }}</q-item-label>
-            <q-item-label caption lines="1">{{ activity.label }}</q-item-label>
-          </q-item-section>
+        <q-list bordered>
+          <q-item
+            v-for="activity in project.activities"
+            :key="activity.id"
+            class="q-my-sm"
+            clickable
+            v-ripple
+          >
+            <q-item-section top avatar>
+              <q-avatar
+                :color=project.color
+                :icon=activity.icon
+                :text-color=project.fontcolor
+              />
+            </q-item-section>
 
-          <q-separator />
-        </q-item>
-      </q-list>
+            <q-item-section>
+              <q-item-label>{{ activity.name }}</q-item-label>
+              <q-item-label caption lines="1">{{ activity.label }}</q-item-label>
+            </q-item-section>
+
+            <q-separator />
+          </q-item>
+        </q-list>
+      </div>
     </div>
 
     <q-dialog v-model="addProjectModalShown" persistent transition-show="scale" transition-hide="scale">
@@ -117,6 +118,7 @@
 </style>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'PageActivities',
@@ -127,32 +129,7 @@ export default {
       confirmDeleteProjectDialogShown: false,
       confirmDeleteProjectDialog: {
         name: ''
-      },
-      projects: [
-        {
-          id: 0,
-          color: 'primary',
-          bgcolor: 'bg-primary',
-          fontcolor: 'white',
-          name: 'Structure',
-          activities: [
-            { id: 0, name: 'Inter-contrat', label: 'Aucun client', icon: 'business' },
-            { id: 1, name: 'Auto-formation', label: '', icon: 'library_books' },
-            { id: 2, name: 'Formation', label: 'Formation par un tiers', icon: 'library_books' }
-          ]
-        },
-        {
-          id: 1,
-          color: 'secondary',
-          bgcolor: 'bg-secondary',
-          fontcolor: 'white',
-          name: 'Bouygues Telecom',
-          activities: [
-            { id: 0, name: 'BonBonBon', label: 'Some test project', icon: 'business' },
-            { id: 1, name: 'Test', label: 'No description', icon: 'home' }
-          ]
-        }
-      ]
+      }
     }
   },
   methods: {
@@ -160,6 +137,9 @@ export default {
       this.confirmDeleteProjectDialog.name = projectName
       this.confirmDeleteProjectDialogShown = true
     }
-  }
+  },
+  computed: mapState({
+    projects: state => state.projects.projects
+  })
 }
 </script>

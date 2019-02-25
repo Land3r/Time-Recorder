@@ -1,7 +1,6 @@
 import {
-  ADD_PROJECT, EDIT_PROJECT, REMOVE_PROJECT, GET_PROJECT,
-  ADD_ACTIVITY, EDIT_ACTIVITY, REMOVE_ACTIVITY, GET_ACTIVITY,
-  ADD_ERROR, FLUSH_ERRORS
+  ADD_PROJECT, EDIT_PROJECT, REMOVE_PROJECT,
+  ADD_PROJECT_ACTIVITY, EDIT_PROJECT_ACTIVITY, REMOVE_PROJECT_ACTIVITY
 } from './types'
 
 export function addProject (context, project) {
@@ -19,35 +18,17 @@ export function removeProject (context, projectId) {
   context.commit(REMOVE_PROJECT, projectId)
 }
 
-export function getProject (context, projectId) {
+export function addProjectActivity (context, projectId, activity) {
   // TODO: Vérification des champs obligatoires.
-  context.commit(GET_PROJECT, projectId)
+  context.commit(ADD_PROJECT_ACTIVITY, projectId, activity)
 }
 
-export function addActivity (context, activity) {
+export function editProjectActivity (context, projectId, activity) {
   // TODO: Vérification des champs obligatoires.
-  context.commit(ADD_ACTIVITY, activity)
+  context.commit(EDIT_PROJECT_ACTIVITY, projectId, activity)
 }
 
-export function editActivity (context, activity) {
+export function removeProjectActivity (context, projectId, activityId) {
   // TODO: Vérification des champs obligatoires.
-  context.commit(EDIT_ACTIVITY, activity)
-}
-
-export function removeActivity (context, activityId) {
-  // TODO: Vérification des champs obligatoires.
-  context.commit(REMOVE_ACTIVITY, activityId)
-}
-
-export function getActivity (context, activityId) {
-  // TODO: Vérification des champs obligatoires.
-  context.commit(GET_ACTIVITY, activityId)
-}
-
-export function addError (context, error) {
-  context.commit(ADD_ERROR, error)
-}
-
-export function flushErrors (context) {
-  context.commit(FLUSH_ERRORS)
+  context.commit(REMOVE_PROJECT_ACTIVITY, projectId, activityId)
 }
