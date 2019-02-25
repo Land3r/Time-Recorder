@@ -1,10 +1,61 @@
-
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MyLayout.vue'),
+    component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      {
+        path: 'projects',
+        name: 'Projects',
+        component: () => import('pages/Projects.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'Accueil', icon: 'home', to: '/' },
+            { id: 1, label: 'Activités', icon: 'business' }
+          ]
+        }
+      },
+      {
+        path: 'activities',
+        name: 'Activites',
+        component: () => import('pages/Activities.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'Accueil', icon: 'home', to: '/' },
+            { id: 1, label: 'Activités', icon: 'business' }
+          ]
+        }
+      },
+      {
+        path: 'charts',
+        name: 'Charts',
+        component: () => import('pages/Charts.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'Accueil', icon: 'home', to: '/' },
+            { id: 1, label: 'Activités', icon: 'business' }
+          ]
+        }
+      },
+      {
+        path: 'index',
+        name: 'Index',
+        component: () => import('pages/Index.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'Accueil', icon: 'home' }
+          ]
+        }
+      },
+      {
+        path: '',
+        name: 'Index',
+        component: () => import('pages/Index.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'Accueil', icon: 'home' }
+          ]
+        }
+      }
     ]
   }
 ]
