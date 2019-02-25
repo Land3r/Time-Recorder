@@ -9,7 +9,7 @@ const routes = [
         component: () => import('pages/Projects.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/' },
+            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
             { id: 1, label: 'Activités', icon: 'business' }
           ]
         }
@@ -20,7 +20,7 @@ const routes = [
         component: () => import('pages/Activities.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/' },
+            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
             { id: 1, label: 'Activités', icon: 'business' }
           ]
         }
@@ -31,8 +31,8 @@ const routes = [
         component: () => import('pages/Charts.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/' },
-            { id: 1, label: 'Activités', icon: 'business' }
+            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
+            { id: 1, label: 'Graphiques', icon: 'donut_small' }
           ]
         }
       },

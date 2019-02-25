@@ -10,10 +10,10 @@
       </template>
       <q-breadcrumbs-el
         v-for="item in items"
-        v-bind:key="item.id"
-        v-bind:label="item.label"
-        v-bind:icon="item.icon"
-        v-bind:to="item.to"
+        :key="item.id"
+        :label="item.label"
+        :icon="item.icon"
+        :to="item.to"
       />
     </q-breadcrumbs>
   </q-toolbar>

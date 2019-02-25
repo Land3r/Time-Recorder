@@ -1,0 +1,12 @@
+export const ADD_PROJECT = 'ADD_PROJECT'
+export const REMOVE_PROJECT = 'REMOVE_PROJECT'
+export const EDIT_PROJECT = 'EDIT_PROJECT'
+export const GET_PROJECT = 'GET_PROJECT'
+
+export const ADD_ACTIVITY = 'ADD_ACTIVITY'
+export const REMOVE_ACTIVITY = 'REMOVE_ACTIVITY'
+export const EDIT_ACTIVITY = 'EDIT_ACTIVITY'
+export const GET_ACTIVITY = 'GET_ACTIVITY'
+
+export const ADD_ERROR = 'ADD_ERROR'
+export const FLUSH_ERRORS = 'FLUSH_ERRORS'

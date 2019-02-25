@@ -38,7 +38,7 @@
         </q-item>
         <q-item clickable tag="a" to="/activities">
           <q-item-section avatar>
-            <q-icon name="record_voice_over" />
+            <q-icon name="business" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Activités</q-item-label>
@@ -50,15 +50,6 @@
           </q-item-section>
           <q-item-section>
             <q-item-label>Graphiques</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://twitter.com/quasarframework">
-          <q-item-section avatar>
-            <q-icon name="rss_feed" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Twitter</q-item-label>
-            <q-item-label caption>@quasarframework</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -85,19 +76,18 @@ import { openURL } from 'quasar'
 import Breadcrumbs from '../components/navigation/Breadcrumbs'
 
 export default {
+  name: 'MyLayout',
   components: {
     'app-breadcrumbs': Breadcrumbs
   },
-  name: 'MyLayout',
   data () {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop,
-      breadcrumbs: []
+      breadcrumbs: this.$route.meta.breadcrumbs
     }
   },
   watch: {
     '$route' () {
-      console.log(`Bd channged: `, this.$route)
       this.breadcrumbs = this.$route.meta.breadcrumbs
     }
   },

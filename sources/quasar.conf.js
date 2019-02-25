@@ -39,11 +39,19 @@ module.exports = function (ctx) {
         'QItemSection',
         'QItemLabel',
         'QBreadcrumbs',
-        'QBreadcrumbsEl'
+        'QBreadcrumbsEl',
+        'QAvatar',
+        'QSeparator',
+        'QDialog',
+        'QCard',
+        'QCardSection',
+        'QCardActions',
+        'QMenu'
       ],
 
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseDialog'
       ],
 
       // Quasar plugins
