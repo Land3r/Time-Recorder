@@ -28,6 +28,16 @@
     >
       <q-list>
         <q-item-label header>Time Recorder</q-item-label>
+        <q-separator />
+        <q-item clickable tag="a" to="/record">
+          <q-item-section avatar>
+            <q-icon :name="getRecordIcon" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Enregisteur</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-separator />
         <q-item clickable tag="a" to="/index">
           <q-item-section avatar>
             <q-icon name="dashboard" />
@@ -73,6 +83,7 @@
 
 <script>
 import { openURL } from 'quasar'
+import { mapGetters } from 'vuex'
 import Breadcrumbs from '../components/navigation/Breadcrumbs'
 
 export default {
@@ -90,6 +101,11 @@ export default {
     '$route' () {
       this.breadcrumbs = this.$route.meta.breadcrumbs
     }
+  },
+  computed: {
+    ...mapGetters('records', [
+      'getRecordIcon'
+    ])
   },
   methods: {
     openURL

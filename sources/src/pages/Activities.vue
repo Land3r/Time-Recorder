@@ -24,28 +24,40 @@
               transition-hide="jump-up"
             >
               <q-list style="min-width: 200px">
-                <q-item clickable>
+                <q-item clickable v-close-menu>
                   <q-item-section avatar>
-                    <q-icon name="edit" />
+                    <q-icon
+                      name="edit"
+                      :color="project.color"
+                    />
                   </q-item-section>
                   <q-item-section>Modifier</q-item-section>
                 </q-item>
-                <q-item clickable>
+                <q-item clickable v-close-menu>
                   <q-item-section avatar>
-                    <q-icon name="add" />
+                    <q-icon
+                      name="add"
+                      :color="project.color"
+                    />
                   </q-item-section>
                   <q-item-section>Ajouter activitée</q-item-section>
                 </q-item>
-                <q-item clickable>
+                <q-item clickable v-close-menu>
                   <q-item-section avatar>
-                    <q-icon name="list" />
+                    <q-icon
+                      name="list"
+                      :color="project.color"
+                    />
                   </q-item-section>
                   <q-item-section>Modifier activitées</q-item-section>
                 </q-item>
                 <q-separator />
-                <q-item clickable @click="showConfirmDeleteProjectModal(project.name)">
+                <q-item clickable @click="showConfirmDeleteProjectModal(project.name)" v-close-menu>
                   <q-item-section avatar>
-                    <q-icon name="delete" />
+                    <q-icon
+                      name="delete"
+                      color="negative"
+                    />
                   </q-item-section>
                   <q-item-section>Supprimer</q-item-section>
                 </q-item>
@@ -88,7 +100,23 @@
         </q-card-section>
 
         <q-card-section>
-          TODO: Formulaire de saisie d'activité
+          <q-input v-model="formCreateProject.name" label="Nom" />
+
+          <q-select v-model="formCreateProject.color" :options="colors" label="Couleur">
+          </q-select>
+
+          <q-select v-model="formCreateProject.bgcolor" :options="colors" label="Back Couleur" />
+
+          <q-select v-model="formCreateProject.textcolor" :options="colors" label="Texte Couleur" />
+
+          <q-toggle
+            v-model="formCreateProject.importStandardActivities"
+            color="primary"
+            label="Importer les activités standard"
+            right-label
+            keep-color
+          />
+
         </q-card-section>
 
         <q-card-actions class="bg-white" align="right">
@@ -119,6 +147,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import colors from '../data/colors'
 
 export default {
   name: 'PageActivities',
@@ -129,7 +158,15 @@ export default {
       confirmDeleteProjectDialogShown: false,
       confirmDeleteProjectDialog: {
         name: ''
-      }
+      },
+      formCreateProject: {
+        name: '',
+        color: '',
+        bgcolor: '',
+        textcolor: '',
+        importStandardActivities: false
+      },
+      colors: colors
     }
   },
   methods: {

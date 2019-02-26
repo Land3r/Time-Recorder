@@ -46,12 +46,16 @@ module.exports = function (ctx) {
         'QCard',
         'QCardSection',
         'QCardActions',
-        'QMenu'
+        'QMenu',
+        'QInput',
+        'QToggle',
+        'QSelect'
       ],
 
       directives: [
         'Ripple',
-        'CloseDialog'
+        'CloseDialog',
+        'CloseMenu'
       ],
 
       // Quasar plugins

@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron'
+import electron from 'electron'
+import storeFunc from '../../src/store/index'
 
 /**
  * Set `__statics` path to static files in production;
@@ -9,33 +10,80 @@ if (process.env.PROD) {
 }
 
 let mainWindow
+let store = storeFunc()
 
+/**
+ * Creates electron main window
+ */
 function createWindow () {
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
+  mainWindow = new electron.BrowserWindow({
     width: 1000,
     height: 600,
-    useContentSize: true
+    useContentSize: true,
+    titleBarStyle: 'hiddenInset',
+    show: false
   })
 
   mainWindow.loadURL(process.env.APP_URL)
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
 
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 }
 
-app.on('ready', createWindow)
+/**
+ * Register system event listeners
+ */
+function registerEventListeners () {
+  electron.powerMonitor.on('suspend', () => {
+    console.log('The system is going to sleep')
+    store.dispatch('addSystemSleep')
+  })
+  electron.powerMonitor.on('resume', () => {
+    console.log('The system is going to resume')
+    store.dispatch('addSystemResume')
+  })
+  electron.powerMonitor.on('shutdown', () => {
+    console.log('The system is going to shutdown')
+    store.dispatch('addSystemShutdown')
+  })
+  electron.powerMonitor.on('on-ac', () => {
+    console.log('The system is now on AC')
+    store.dispatch('addSystemAc')
+  })
+  electron.powerMonitor.on('on-battery', () => {
+    console.log('The system is now on Battery')
+    store.dispatch('addSystemBattery')
+  })
+  electron.powerMonitor.on('lock-screen', () => {
+    console.log('The screen is going to lock')
+    store.dispatch('application/addSystemLock')
+  })
+  electron.powerMonitor.on('unlock-screen', () => {
+    console.log('The screen is going to unlock')
+    store.dispatch('application/addSystemUnlock')
+  })
+}
 
-app.on('window-all-closed', () => {
+electron.app.on('ready', () => {
+  createWindow()
+  registerEventListeners()
+})
+
+electron.app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    electron.app.quit()
   }
 })
 
-app.on('activate', () => {
+electron.app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
   }
