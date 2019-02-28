@@ -94,36 +94,7 @@
     </div>
 
     <q-dialog v-model="addProjectModalShown" persistent transition-show="scale" transition-hide="scale">
-      <q-card style="width: 300px">
-        <q-card-section class="bg-primary text-white">
-          <div class="text-h6">Ajouter un projet</div>
-        </q-card-section>
-
-        <q-card-section>
-          <q-input v-model="formCreateProject.name" label="Nom" />
-
-          <q-select v-model="formCreateProject.color" :options="colors" label="Couleur">
-          </q-select>
-
-          <q-select v-model="formCreateProject.bgcolor" :options="colors" label="Back Couleur" />
-
-          <q-select v-model="formCreateProject.textcolor" :options="colors" label="Texte Couleur" />
-
-          <q-toggle
-            v-model="formCreateProject.importStandardActivities"
-            color="primary"
-            label="Importer les activités standard"
-            right-label
-            keep-color
-          />
-
-        </q-card-section>
-
-        <q-card-actions class="bg-white" align="right">
-          <q-btn flat label="Fermer" class="float-left" v-close-dialog />
-          <q-btn flat label="OK" class="text-primary float-right" />
-        </q-card-actions>
-      </q-card>
+      <app-createprojectform />
     </q-dialog>
 
     <q-dialog v-model="confirmDeleteProjectDialogShown" persistent>
@@ -147,10 +118,14 @@
 
 <script>
 import { mapState } from 'vuex'
-import colors from '../data/colors'
+
+import CreateProjectForm from '../components/form/CreateProject'
 
 export default {
   name: 'PageActivities',
+  components: {
+    'app-createprojectform': CreateProjectForm
+  },
   data: () => {
     return {
       addProjectModalShown: false,
@@ -158,15 +133,7 @@ export default {
       confirmDeleteProjectDialogShown: false,
       confirmDeleteProjectDialog: {
         name: ''
-      },
-      formCreateProject: {
-        name: '',
-        color: '',
-        bgcolor: '',
-        textcolor: '',
-        importStandardActivities: false
-      },
-      colors: colors
+      }
     }
   },
   methods: {
