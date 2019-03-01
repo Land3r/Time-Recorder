@@ -7,7 +7,7 @@ export default {
   namespaced: true,
   getters,
   mutations: {
-    mutations
+    ...mutations
   },
   actions,
   state

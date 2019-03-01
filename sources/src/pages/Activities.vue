@@ -52,7 +52,7 @@
                   <q-item-section>Modifier activitées</q-item-section>
                 </q-item>
                 <q-separator />
-                <q-item clickable @click="showConfirmDeleteProjectModal(project.name)" v-close-menu>
+                <q-item clickable @click="showConfirmDeleteProjectModal(project)" v-close-menu>
                   <q-item-section avatar>
                     <q-icon
                       name="delete"
@@ -94,7 +94,7 @@
     </div>
 
     <q-dialog v-model="addProjectModalShown" persistent transition-show="scale" transition-hide="scale">
-      <app-createprojectform />
+      <app-createprojectform :closeDialog="(value) => {addProjectModalShown = value}" />
     </q-dialog>
 
     <q-dialog v-model="confirmDeleteProjectDialogShown" persistent>
@@ -106,7 +106,7 @@
 
         <q-card-actions align="right">
           <q-btn flat label="Annuler" v-close-dialog />
-          <q-btn flat label="Supprimer" color="primary" v-close-dialog />
+          <q-btn flat label="Supprimer" color="primary" @click="removeProject(confirmDeleteProjectDialog.id)" v-close-dialog />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -117,7 +117,7 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import CreateProjectForm from '../components/form/CreateProject'
 
@@ -132,15 +132,21 @@ export default {
       addProjectActivityModalShown: false,
       confirmDeleteProjectDialogShown: false,
       confirmDeleteProjectDialog: {
+        id: 0,
         name: ''
       }
     }
   },
   methods: {
-    showConfirmDeleteProjectModal: function (projectName) {
-      this.confirmDeleteProjectDialog.name = projectName
+    showConfirmDeleteProjectModal: function (project) {
+      this.confirmDeleteProjectDialog = {
+        ...project
+      }
       this.confirmDeleteProjectDialogShown = true
-    }
+    },
+    ...mapActions('projects', [
+      'removeProject'
+    ])
   },
   computed: mapState({
     projects: state => state.projects.projects

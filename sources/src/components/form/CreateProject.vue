@@ -46,8 +46,8 @@
     </q-card-section>
 
     <q-card-actions class="bg-white" align="right">
-      <q-btn flat label="Fermer" class="float-left" v-close-dialog />
-      <q-btn flat label="OK" class="text-primary float-right" @click="submit()"/>
+      <q-btn flat label="Annuler" class="float-left" v-close-dialog />
+      <q-btn flat label="Créer" class="text-primary float-right" @click="submit()" :v-close-dialog="isValid"/>
     </q-card-actions>
   </q-card>
 </template>
@@ -62,6 +62,7 @@ import colors from '../../data/colors'
 
 export default {
   name: 'CreateProjectForm',
+  props: ['closeDialog'],
   data: () => {
     return {
       form: {
@@ -95,11 +96,17 @@ export default {
         }
 
         this.addProject(project)
+        this.closeDialog()
       }
     },
     ...mapActions('projects', {
       addProject: 'addProject'
     })
+  },
+  computed: {
+    isValid: function () {
+      return !this.$v.$invalid
+    }
   }
 }
 </script>

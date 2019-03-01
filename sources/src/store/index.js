@@ -41,6 +41,5 @@ const storeConfig = isElectron() ? merge(baseStoreConfig, electronStoreConfig) :
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store(storeConfig)
-  console.log(Store)
   return Store
 }
