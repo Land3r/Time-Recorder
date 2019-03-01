@@ -2,7 +2,7 @@ import {
   START_RECORD, END_RECORD
 } from './types'
 
-export default {
+export const mutations = {
   [START_RECORD] (state, activity) {
     state.isRecording = true
     state.currentRecord = {

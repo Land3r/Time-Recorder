@@ -3,7 +3,7 @@ import {
   ADD_PROJECT_ACTIVITY, EDIT_PROJECT_ACTIVITY, REMOVE_PROJECT_ACTIVITY
 } from './types'
 
-export default {
+export const mutations = {
   [ADD_PROJECT] (state, project) {
     state.projects.push(project)
   },

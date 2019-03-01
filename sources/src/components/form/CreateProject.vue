@@ -57,6 +57,7 @@
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex'
 import colors from '../../data/colors'
 
 export default {
@@ -83,12 +84,22 @@ export default {
   methods: {
     submit () {
       this.$v.$touch()
-      if (this.$v.$invalid) {
-        console.log('Form invalid')
-      } else {
-        console.log('TODO: Form valid')
+      if (!this.$v.$invalid) {
+        // TODO: If importStandardActivities, retrieve and set it into activities []
+        const project = {
+          name: this.form.name,
+          color: this.form.color,
+          bgcolor: 'bg-' + this.form.color,
+          textcolor: this.form.textcolor,
+          activities: []
+        }
+
+        this.addProject(project)
       }
-    }
+    },
+    ...mapActions('projects', {
+      addProject: 'addProject'
+    })
   }
 }
 </script>

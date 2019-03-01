@@ -3,7 +3,7 @@ import {
   ADD_SYSTEM_AC, ADD_SYSTEM_BATTERY, ADD_SYSTEM_LOCK, ADD_SYSTEM_UNLOCK, ADD_SYSTEM_RESUME, ADD_SYSTEM_SHUTDOWN, ADD_SYSTEM_SLEEP, FLUSH_SYSTEM_EVENTS
 } from './types'
 
-export default {
+export const mutations = {
   [ADD_ERROR] (state, error) {
     state.errors.push(error)
   },
