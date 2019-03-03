@@ -8,14 +8,17 @@ export const mutations = {
     state.projects.push(project)
   },
   [EDIT_PROJECT] (state, project) {
+    console.dir(state.projects)
+    console.dir(state.project)
     state.projects = [
-      ...state.project.filter((element) => element.id !== project.id),
+      ...state.projects.filter((element) => element.id !== project.id),
       project
     ]
+    console.dir(state.projects)
   },
   [REMOVE_PROJECT] (state, id) {
     state.projects = [
-      ...state.project.filter((element) => element.id !== id)
+      ...state.projects.filter((element) => element.id !== id)
     ]
   },
   [ADD_PROJECT_ACTIVITY] (state, projectId, activity) {

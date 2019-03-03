@@ -17,6 +17,22 @@
         </q-toolbar-title>
 
         <div>Using quasar v{{ $q.version }}</div>
+          <q-btn flat round dense icon="settings">
+            <q-menu
+              transition-show="jump-down"
+              transition-hide="jump-up"
+            >
+              <q-list style="min-width: 200px">
+                <q-separator />
+                <q-item clickable v-close-menu>
+                  <q-item-section avatar>
+                    <q-icon name="close" />
+                  </q-item-section>
+                  <q-item-section>Exit</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
       </q-toolbar>
       <app-breadcrumbs v-bind:items="breadcrumbs" />
     </q-header>
@@ -46,12 +62,12 @@
             <q-item-label>Accueil</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" to="/activities">
+        <q-item clickable tag="a" to="/projects">
           <q-item-section avatar>
             <q-icon name="business" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Activités</q-item-label>
+            <q-item-label>Projets</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" to="charts">
@@ -87,11 +103,11 @@ import { mapGetters } from 'vuex'
 import Breadcrumbs from '../components/navigation/Breadcrumbs'
 
 export default {
-  name: 'MyLayout',
+  name: 'MainLayout',
   components: {
     'app-breadcrumbs': Breadcrumbs
   },
-  data () {
+  data: function () {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop,
       breadcrumbs: this.$route.meta.breadcrumbs

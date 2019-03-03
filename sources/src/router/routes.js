@@ -21,7 +21,7 @@ const routes = [
         meta: {
           breadcrumbs: [
             { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
-            { id: 1, label: 'Activités', icon: 'business' }
+            { id: 1, label: 'Projets', icon: 'business' }
           ]
         }
       },

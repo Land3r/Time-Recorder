@@ -44,31 +44,31 @@ function createWindow () {
 function registerEventListeners () {
   electron.powerMonitor.on('suspend', () => {
     console.log('The system is going to sleep')
-    store.dispatch('addSystemSleep')
+    store.dispatch('application', 'addSystemSleep')
   })
   electron.powerMonitor.on('resume', () => {
     console.log('The system is going to resume')
-    store.dispatch('addSystemResume')
+    store.dispatch('application', 'addSystemResume')
   })
   electron.powerMonitor.on('shutdown', () => {
     console.log('The system is going to shutdown')
-    store.dispatch('addSystemShutdown')
+    store.dispatch('application', 'addSystemShutdown')
   })
   electron.powerMonitor.on('on-ac', () => {
     console.log('The system is now on AC')
-    store.dispatch('addSystemAc')
+    store.dispatch('application', 'addSystemAc')
   })
   electron.powerMonitor.on('on-battery', () => {
     console.log('The system is now on Battery')
-    store.dispatch('addSystemBattery')
+    store.dispatch('application', 'addSystemBattery')
   })
   electron.powerMonitor.on('lock-screen', () => {
     console.log('The screen is going to lock')
-    store.dispatch('application/addSystemLock')
+    store.dispatch('application', 'application/addSystemLock')
   })
   electron.powerMonitor.on('unlock-screen', () => {
     console.log('The screen is going to unlock')
-    store.dispatch('application/addSystemUnlock')
+    store.dispatch('application', 'application/addSystemUnlock')
   })
 }
 
