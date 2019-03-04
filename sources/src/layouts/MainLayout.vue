@@ -80,12 +80,12 @@
         </q-item>
       </q-list>
       <q-list class="fixed-bottom">
-        <q-item clickable tag="a" target="_blank" href="https://github.com/land3r/time-recorder">
+        <q-item clickable tag="a" target="_blank" @click="openExternal('https://github.com/land3r/time-recorder')">
           <q-item-section avatar>
             <q-icon name="code" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Github</q-item-label>
+            <q-item-label>Made with 💗</q-item-label>
             <q-item-label caption>github.com/land3r/time-recorder</q-item-label>
           </q-item-section>
         </q-item>
@@ -124,7 +124,11 @@ export default {
     ])
   },
   methods: {
-    openURL
+    openURL,
+    openExternal: function (url) {
+      // TODO: Add an event on ipcMain and require it from renderer.
+      require('shell').openExternal(url)
+    }
   }
 }
 </script>
