@@ -48,6 +48,17 @@ const routes = [
         }
       },
       {
+        path: 'settings',
+        name: 'Settings',
+        component: () => import('pages/Settings.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
+            { id: 1, label: 'Settings', icon: 'settings' }
+          ]
+        }
+      },
+      {
         path: 'index',
         name: 'Index',
         component: () => import('pages/Index.vue'),

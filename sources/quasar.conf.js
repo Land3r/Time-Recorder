@@ -50,7 +50,8 @@ module.exports = function (ctx) {
         'QMenu',
         'QInput',
         'QToggle',
-        'QSelect'
+        'QSelect',
+        'QExpansionItem'
       ],
 
       directives: [

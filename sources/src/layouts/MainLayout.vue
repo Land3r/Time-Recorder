@@ -17,14 +17,20 @@
         </q-toolbar-title>
 
         <div>Using quasar v{{ $q.version }}</div>
-          <q-btn flat round dense icon="settings">
+          <q-btn flat round dense icon="settings" class="can-rotate on-hover-rotate">
             <q-menu
               transition-show="jump-down"
               transition-hide="jump-up"
             >
               <q-list style="min-width: 200px">
+                <q-item clickable to="/settings" v-close-menu>
+                  <q-item-section avatar>
+                    <q-icon name="settings" />
+                  </q-item-section>
+                  <q-item-section>Settings</q-item-section>
+                </q-item>
                 <q-separator />
-                <q-item clickable v-close-menu>
+                <q-item clickable v-close-menu @click="closeApplication()">
                   <q-item-section avatar>
                     <q-icon name="close" />
                   </q-item-section>
@@ -100,6 +106,9 @@
 <script>
 import { openURL } from 'quasar'
 import { mapGetters } from 'vuex'
+
+const electron = require('electron')
+import { EXIT_APPLICATION } from '../../src-electron/ipc-events-types'
 import Breadcrumbs from '../components/navigation/Breadcrumbs'
 
 export default {
@@ -124,7 +133,11 @@ export default {
     ])
   },
   methods: {
-    openURL
+    openURL,
+    closeApplication: function () {
+      // TODO: If recording, popup de confirmation.
+      electron.ipcRenderer.send(EXIT_APPLICATION)
+    }
   }
 }
 </script>

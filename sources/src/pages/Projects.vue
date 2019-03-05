@@ -136,9 +136,6 @@
 </template>
 
 <style>
-.cursor-disabled {
-  cursor: not-allowed
-}
 </style>
 
 <script>
@@ -180,7 +177,6 @@ export default {
     ])
   },
   computed: {
-
     ...mapGetters('projects', {
       projects: 'orderedProjects'
     })
