@@ -1,7 +1,7 @@
 <template>
   <q-card style="min-width: 30vw; max-width: 90vw;">
     <q-card-section class="bg-primary text-white">
-      <div class="text-h6">Modifier un projet</div>
+      <div class="text-h6">Ajouter un projet</div>
     </q-card-section>
 
     <q-card-section>
@@ -36,12 +36,18 @@
     </q-card-section>
 
     <q-card-section>
-
+      <q-toggle
+        v-model="form.importStandardActivities"
+        color="primary"
+        label="Importer les activités standard"
+        right-label
+        keep-color
+      />
     </q-card-section>
 
     <q-card-actions class="bg-white" align="right">
-      <q-btn flat label="Annuler" class="float-left" @click="reset()" v-close-dialog />
-      <q-btn flat label="Modifier" class="text-primary float-right" @click="submit()" :v-close-dialog="isValid"/>
+      <q-btn flat label="Annuler" class="float-left" v-close-dialog />
+      <q-btn flat label="Créer" class="text-primary float-right" @click="submit()" :v-close-dialog="isValid"/>
     </q-card-actions>
   </q-card>
 </template>
@@ -51,19 +57,19 @@
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
-import { mapActions } from 'vuex'
-import colors from '../../data/colors'
+import { mapActions, mapGetters } from 'vuex'
+import colors from '../../../data/colors'
 
 export default {
-  name: 'EditProjectForm',
-  props: [
-    'project',
-    'closeDialog'
-  ],
+  name: 'CreateProjectForm',
+  props: ['closeDialog'],
   data: function () {
     return {
       form: {
-        ...this.project
+        name: '',
+        color: '',
+        textcolor: '',
+        importStandardActivities: false
       },
       colors: colors
     }
@@ -72,48 +78,41 @@ export default {
     form: {
       name: { required, minLength: minLength(3) },
       color: { required },
-      textcolor: { required }
+      textcolor: { required },
+      importStandardActivities: { required }
     }
   },
   methods: {
     submit () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        const editedProject = {
-          id: this.form.id,
-          order: this.form.order,
+        // TODO: If importStandardActivities, retrieve and set it into activities []
+        const project = {
+          id: this.getNextId,
+          order: this.getNextOrder,
           name: this.form.name,
           color: this.form.color,
           bgcolor: 'bg-' + this.form.color,
           textcolor: this.form.textcolor,
-          activities: [
-            ...this.project.activities
-          ]
+          activities: []
         }
 
-        this.editProject(editedProject)
+        this.addProject(project)
         this.closeDialog()
       }
     },
-    reset () {
-      this.form = {
-        id: 0,
-        order: 0,
-        name: '',
-        color: 'primary',
-        bgcolor: 'bg-primary',
-        textcolor: 'black',
-        activities: []
-      }
-    },
     ...mapActions('projects', {
-      editProject: 'editProject'
+      addProject: 'addProject'
     })
   },
   computed: {
     isValid: function () {
       return !this.$v.$invalid
-    }
+    },
+    ...mapGetters('projects', {
+      getNextId: 'getNextProjectId',
+      getNextOrder: 'getNextProjectOrder'
+    })
   }
 }
 </script>

@@ -4,9 +4,9 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: 'record',
-        name: 'Record',
-        component: () => import('pages/Record.vue'),
+        path: 'recorder',
+        name: 'Recorder',
+        component: () => import('pages/Recorder.vue'),
         meta: {
           breadcrumbs: [
             { id: 0, label: 'Accueil', icon: 'home', to: '/index' },

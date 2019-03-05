@@ -5,6 +5,7 @@ import isElectron from 'is-electron'
 import { createPersistedState, createSharedMutations } from 'vuex-electron'
 
 import application from './application'
+import settings from './settings'
 import records from './records'
 import projects from './projects'
 
@@ -19,6 +20,7 @@ Vue.use(Vuex)
 const baseStoreConfig = {
   modules: {
     application,
+    settings,
     records,
     projects
   },

@@ -119,7 +119,7 @@
       />
     </q-dialog>
 
-    <q-dialog v-model="confirmDeleteProjectDialogShown" persistent>
+    <q-dialog v-model="confirmDeleteDefaultActivityDialogShown" persistent>
       <q-card>
         <q-card-section class="row items-center">
           <q-avatar icon="delete" color="primary" text-color="white" />
@@ -141,8 +141,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import CreateProjectForm from '../components/form/CreateProject'
-import EditProjectForm from '../components/form/EditProject'
+import CreateProjectForm from '../components/form/project/CreateProject'
+import EditProjectForm from '../components/form/project/EditProject'
 
 export default {
   name: 'PageProjects',

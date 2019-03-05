@@ -1,6 +1,6 @@
 import electron from 'electron'
 import storeFunc from '../../src/store/index'
-import { EXIT_APPLICATION } from '../ipc-events-types'
+import { EXIT_APPLICATION, OPEN_EXTERNAL_URL, BEEP } from '../ipc-events-types'
 
 /**
  * Set `__statics` path to static files in production;
@@ -44,25 +44,25 @@ function createWindow () {
  */
 function registerEventListeners () {
   electron.powerMonitor.on('suspend', () => {
-    store.dispatch('application', 'addSystemSleep')
+    store.dispatch('application/addSystemSleep')
   })
   electron.powerMonitor.on('resume', () => {
-    store.dispatch('application', 'addSystemResume')
+    store.dispatch('application/addSystemResume')
   })
   electron.powerMonitor.on('shutdown', () => {
-    store.dispatch('application', 'addSystemShutdown')
+    store.dispatch('application/addSystemShutdown')
   })
   electron.powerMonitor.on('on-ac', () => {
-    store.dispatch('application', 'addSystemAc')
+    store.dispatch('application/addSystemAc')
   })
   electron.powerMonitor.on('on-battery', () => {
-    store.dispatch('application', 'addSystemBattery')
+    store.dispatch('application/addSystemBattery')
   })
   electron.powerMonitor.on('lock-screen', () => {
-    store.dispatch('application', 'application/addSystemLock')
+    store.dispatch('application/addSystemLock')
   })
   electron.powerMonitor.on('unlock-screen', () => {
-    store.dispatch('application', 'application/addSystemUnlock')
+    store.dispatch('application/addSystemUnlock')
   })
 }
 
@@ -97,4 +97,12 @@ electron.app.on('activate', () => {
  */
 electron.ipcMain.on(EXIT_APPLICATION, (event, args) => {
   electron.app.quit()
+})
+
+electron.ipcMain.on(OPEN_EXTERNAL_URL, (event, args) => {
+  electron.shell.openExternal(args)
+})
+
+electron.ipcMain.on(BEEP, (event, args) => {
+  electron.shell.beep()
 })
