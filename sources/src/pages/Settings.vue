@@ -7,16 +7,16 @@
     </div>
 
     <q-list bordered>
-      <q-expansion-item group="settings" icon="perm_identity" key="user" label="Utilisateur" default-opened :header-class="getHeaderClass('user')" @click="setActiveExpansionItem('user')">
+      <q-expansion-item group="settings" icon="perm_identity" key="user" label="Utilisateur" default-opened :header-class="getHeaderClass('user')" @show="setActiveExpansionItem('user')">
         <q-card>
           <h3>Mon profil</h3>
         </q-card>
       </q-expansion-item>
-      <q-expansion-item group="settings" icon="perm_identity" key="activities" label="Activités" :header-class="getHeaderClass('activities')" @click="setActiveExpansionItem('activities')">
+      <q-expansion-item group="settings" icon="list" key="activities" label="Activités" :header-class="getHeaderClass('activities')" @show="setActiveExpansionItem('activities')">
         <q-card>
           <h3>
             Activités par defaut
-            <q-btn round color="positive" icon="add" class="float-right" @click="addDefaultActivitiesModalShown = true"/>
+            <q-btn round color="positive" icon="add" class="float-right" @click="addDefaultActivityModalShown = true"/>
           </h3>
           <q-list bordered>
             <template v-if="defaultActivities.length == 0">
@@ -34,6 +34,7 @@
               <q-item
                 v-for="activity in defaultActivities"
                 :key="activity.id"
+                @mouseover="setActiveDefaultActivity(activity)"
                 class="q-my-sm"
                 clickable
                 v-ripple
@@ -50,9 +51,9 @@
                 </q-item-section>
 
                 <q-item-section top side>
-                  <div class="q-gutter-xs">
-                    <q-btn class="visible-on-hover" flat dense round icon="edit" />
-                    <q-btn class="visible-on-hover" flat dense round icon="delete" />
+                  <div class="q-gutter-sm">
+                    <q-btn class="visible-on-hover" icon="edit" color="primary" @click="editDefaultActivityModalShown = true" flat dense round />
+                    <q-btn class="visible-on-hover" icon="delete" color="red" @click="confirmDeleteDefaultActivityDialogShown = true" flat dense round />
                   </div>
                 </q-item-section>
                 <q-separator />
@@ -61,16 +62,57 @@
           </q-list>
         </q-card>
 
-        <q-dialog v-model="addDefaultActivitiesModalShown" persistent transition-show="scale" transition-hide="scale">
+        <q-dialog v-model="addDefaultActivityModalShown" persistent transition-show="scale" transition-hide="scale">
           <app-createactivityform
             mode='default'
-            :closeDialog="(value) => {addDefaultActivitiesModalShown = value}"
+            :closeDialog="(value) => {addDefaultActivityModalShown = value}"
           />
         </q-dialog>
+
+        <q-dialog v-model="editDefaultActivityModalShown" persistent transition-show="scale" transition-hide="scale">
+          <app-editactivityform
+            mode='default'
+            :activity="activeDefaultActivity"
+            :closeDialog="(value) => {editDefaultActivityModalShown = value}"
+          />
+        </q-dialog>
+
+        <q-dialog v-model="confirmDeleteDefaultActivityDialogShown" persistent transition-show="scale" transition-hide="scale">
+          <q-card>
+            <q-card-section class="row items-center">
+              <q-avatar icon="delete" color="primary" text-color="white" />
+              <span class="q-mx-sm">Etes vous sur de vouloir supprimer l'activité <strong>{{activeDefaultActivity.name}}</strong> ?</span>
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <q-btn flat label="Annuler" v-close-dialog />
+              <q-btn flat label="Supprimer" color="primary" @click="removeDefaultActivity(activeDefaultActivity.id)" v-close-dialog />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
       </q-expansion-item>
-      <q-expansion-item group="settings" icon="timer" key="recorder" label="Enregisteur" :header-class="getHeaderClass('recorder')" @click="setActiveExpansionItem('recorder')">
+      <q-expansion-item group="settings" icon="timer" key="recorder" label="Enregisteur" :header-class="getHeaderClass('recorder')" @show="setActiveExpansionItem('recorder')">
         <q-card>
-          <h3>Activités par default</h3>
+          <h3>Evenements systemes</h3>
+        </q-card>
+      </q-expansion-item>
+      <q-expansion-item group="settings" icon="import_export" key="import_export" label="Import / Export" :header-class="getHeaderClass('import_export')" @show="setActiveExpansionItem('import_export')">
+        <q-card>
+          <h3>Export</h3>
+          <h3>Import</h3>
+        </q-card>
+      </q-expansion-item>
+      <q-expansion-item group="settings" icon="import_export" key="import_export" label="Import / Export" :header-class="getHeaderClass('import_export')" @show="setActiveExpansionItem('import_export')">
+        <q-card>
+          <h3>Export</h3>
+          <h3>Import</h3>
+        </q-card>
+      </q-expansion-item>
+      <q-expansion-item group="settings" icon="delete_forever" key="reset" label="Reset" :header-class="getHeaderClass('reset')" @show="setActiveExpansionItem('reset')">
+        <q-card>
+          <h3>Reset</h3>
+          <br />
+          <q-btn color="negative">Reset</q-btn>
         </q-card>
       </q-expansion-item>
     </q-list>
@@ -88,19 +130,27 @@ div.q-item:hover .visible-on-hover {
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import CreateActivityForm from '../components/form/activity/CreateActivity'
+import EditActivityForm from '../components/form/activity/EditActivity'
 
 export default {
   name: 'SettingsIndex',
   components: {
-    'app-createactivityform': CreateActivityForm
+    'app-createactivityform': CreateActivityForm,
+    'app-editactivityform': EditActivityForm
   },
   data: function () {
     return {
       activeExpansionItem: 'user',
-      'addDefaultActivitiesModalShown': false
+      activeDefaultActivity: {
+        id: 0,
+        name: ''
+      },
+      'addDefaultActivityModalShown': false,
+      'editDefaultActivityModalShown': false,
+      'confirmDeleteDefaultActivityDialogShown': false
     }
   },
   methods: {
@@ -109,12 +159,20 @@ export default {
     },
     setActiveExpansionItem: function (key) {
       this.activeExpansionItem = key
-    }
+    },
+    setActiveDefaultActivity: function (activity) {
+      this.activeDefaultActivity = {
+        ...activity
+      }
+    },
+    ...mapActions('settings', [
+      'removeDefaultActivity'
+    ])
   },
   computed: {
-    ...mapState('settings', [
-      'defaultActivities'
-    ])
+    ...mapGetters('settings', {
+      defaultActivities: 'orderedDefaultActivities'
+    })
   }
 }
 </script>

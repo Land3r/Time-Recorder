@@ -1,7 +1,7 @@
 <template>
   <q-card style="min-width: 30vw; max-width: 90vw;">
     <q-card-section class="bg-primary text-white">
-      <div class="text-h6">Modifier un projet</div>
+      <div class="text-h6">Modifier une activité</div>
     </q-card-section>
 
     <q-card-section>
@@ -12,35 +12,52 @@
         :error="$v.form.name.$error"
       />
 
-      <q-select
-        label="Couleur"
-        v-model="form.color"
-        @blur="$v.form.color.$touch"
-        :options="colors"
-        :error="$v.form.color.$error"
-      >
-      </q-select>
+      <q-input
+        label="Label"
+        v-model="form.label"
+        @blur="$v.form.label.$touch"
+        :error="$v.form.label.$error"
+      />
 
       <q-select
-        label="Couleur du texte"
-        v-model="form.textcolor"
-        @blur="$v.form.textcolor.$touch"
-        :options="colors"
-        :error="$v.form.textcolor.$error"
+        use-input
+        input-debounce="0"
+        label="Icone"
+        v-model="form.icon"
+        @blur="$v.form.icon.$touch"
+        @filter="filterIcons"
+        :options="icons"
+        :error="$v.form.icon.$error"
       >
+        <template v-slot:prepend>
+          <q-icon :name="form.icon" />
+        </template>
+        <template v-slot:option="scope">
+          <q-item
+            v-bind="scope.itemProps"
+            v-on="scope.itemEvents"
+          >
+            <q-item-section avatar>
+              <q-icon :name="scope.opt" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label v-html="scope.opt" />
+            </q-item-section>
+          </q-item>
+        </template>
+        <template v-slot:no-option>
+          <q-item>
+            <q-item-section class="text-grey">
+              Pas de resultats
+            </q-item-section>
+          </q-item>
+        </template>
       </q-select>
-    </q-card-section>
-
-    <q-card-section class="bg-primary text-white">
-      <div class="text-h6">Activités</div>
-    </q-card-section>
-
-    <q-card-section>
 
     </q-card-section>
 
     <q-card-actions class="bg-white" align="right">
-      <q-btn flat label="Annuler" class="float-left" @click="reset()" v-close-dialog />
+      <q-btn flat label="Annuler" class="float-left" v-close-dialog />
       <q-btn flat label="Modifier" class="text-primary float-right" @click="submit()" :v-close-dialog="isValid"/>
     </q-card-actions>
   </q-card>
@@ -52,63 +69,95 @@
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
-import colors from '../../../data/colors'
+import icons from '../../../data/icons'
 
 export default {
   name: 'EditActivityForm',
-  props: [
-    'project',
-    'closeDialog'
-  ],
+  props: {
+    closeDialog: {
+      type: Function,
+      required: true
+    },
+    mode: {
+      type: String,
+      required: true,
+      validator: function (value) {
+        return ['default', 'project'].indexOf(value) !== -1
+      }
+    },
+    activity: {
+      type: Object,
+      required: true
+    },
+    project: {
+      type: Object,
+      required: false,
+      default: function () {
+        return { id: 0 }
+      }
+    }
+  },
   data: function () {
     return {
       form: {
-        ...this.project
+        ...this.activity
       },
-      colors: colors
+      icons: icons
     }
   },
   validations: {
     form: {
       name: { required, minLength: minLength(3) },
-      color: { required },
-      textcolor: { required }
+      label: {},
+      icon: { required }
     }
   },
   methods: {
-    submit () {
+    submit: function () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        const editedProject = {
-          id: this.form.id,
-          order: this.form.order,
-          name: this.form.name,
-          color: this.form.color,
-          bgcolor: 'bg-' + this.form.color,
-          textcolor: this.form.textcolor,
-          activities: [
-            ...this.project.activities
-          ]
-        }
+        if (this.mode === 'default') {
+          const activity = {
+            id: this.form.id,
+            order: this.form.order,
+            name: this.form.name,
+            ...(this.form.label !== '' && { label: this.form.label }),
+            icon: this.form.icon
+          }
 
-        this.editProject(editedProject)
+          this.editDefaultActivity(activity)
+        } else if (this.mode === 'project') {
+          const activity = {
+            id: this.form.id,
+            order: this.form.order,
+            name: this.form.name,
+            ...(this.form.label !== '' && { label: this.form.label }),
+            icon: this.form.icon
+          }
+
+          this.editProjectActivity(this.project.id, activity)
+        }
         this.closeDialog()
       }
     },
-    reset () {
-      this.form = {
-        id: 0,
-        order: 0,
-        name: '',
-        color: 'primary',
-        bgcolor: 'bg-primary',
-        textcolor: 'black',
-        activities: []
+    filterIcons: function (val, update) {
+      if (val === '') {
+        update(() => {
+          this.icons = icons
+        })
+        return
       }
+      update(() => {
+        const needle = val.toLowerCase()
+        this.icons = icons.filter(v => v.toLowerCase().indexOf(needle) > -1)
+      })
     },
-    ...mapActions('projects', {
-      editProject: 'editProject'
-    })
+    ...mapActions('projects', [
+      'editProjectActivity'
+    ]),
+    ...mapActions('settings', [
+      'editDefaultActivity'
+    ])
   },
   computed: {
     isValid: function () {

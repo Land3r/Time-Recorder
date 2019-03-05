@@ -119,11 +119,11 @@
       />
     </q-dialog>
 
-    <q-dialog v-model="confirmDeleteDefaultActivityDialogShown" persistent>
+    <q-dialog v-model="confirmDeleteProjectDialogShown" persistent>
       <q-card>
         <q-card-section class="row items-center">
           <q-avatar icon="delete" color="primary" text-color="white" />
-          <span class="q-mx-sm">Etes vous sur de vouloir supprimer le projet <strong>{{activeProject.name}}</strong></span>
+          <span class="q-mx-sm">Etes vous sur de vouloir supprimer le projet <strong>{{activeProject.name}}</strong> ?</span>
         </q-card-section>
 
         <q-card-actions align="right">
