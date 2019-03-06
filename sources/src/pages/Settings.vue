@@ -31,34 +31,36 @@
               </q-item>
             </template>
             <template v-else>
-              <draggable class="draggable">
-              <q-item
-                v-for="activity in defaultActivities"
-                :key="activity.id"
-                @mouseover="setActiveDefaultActivity(activity)"
-                class="q-my-sm"
-                clickable
-                v-ripple
-              >
-                <q-item-section top avatar>
-                  <q-avatar color="primary" text-color="white"
-                    :icon=activity.icon
-                  />
-                </q-item-section>
+              <draggable>
+                <q-item
+                  v-for="activity in defaultActivities"
+                  :key="activity.id"
+                  :itemid="activity.id"
+                  @mouseover="setActiveDefaultActivity(activity)"
+                  class="q-my-sm draggable"
+                  clickable
+                  v-ripple
+                  @drop="(e) => {defaultActivityReorder(e)}"
+                >
+                  <q-item-section top avatar>
+                    <q-avatar color="primary" text-color="white"
+                      :icon=activity.icon
+                    />
+                  </q-item-section>
 
-                <q-item-section>
-                  <q-item-label>{{ activity.name }}</q-item-label>
-                  <q-item-label caption lines="1">{{ activity.label }}</q-item-label>
-                </q-item-section>
+                  <q-item-section>
+                    <q-item-label>{{ activity.name }}</q-item-label>
+                    <q-item-label caption lines="1">{{ activity.label }}</q-item-label>
+                  </q-item-section>
 
-                <q-item-section top side>
-                  <div class="q-gutter-sm">
-                    <q-btn class="visible-on-hover" icon="edit" color="primary" @click="editDefaultActivityModalShown = true" flat dense round />
-                    <q-btn class="visible-on-hover" icon="delete" color="red" @click="confirmDeleteDefaultActivityDialogShown = true" flat dense round />
-                  </div>
-                </q-item-section>
-                <q-separator />
-              </q-item>
+                  <q-item-section top side>
+                    <div class="q-gutter-sm">
+                      <q-btn class="visible-on-hover" icon="edit" color="primary" @click="editDefaultActivityModalShown = true" flat dense round />
+                      <q-btn class="visible-on-hover" icon="delete" color="red" @click="confirmDeleteDefaultActivityDialogShown = true" flat dense round />
+                    </div>
+                  </q-item-section>
+                  <q-separator />
+                </q-item>
               </draggable>
               // TODO: https://www.npmjs.com/package/vuedraggable
               // S'abonner aux events pour pouvoir changer la prop 'order'.
@@ -255,6 +257,14 @@ export default {
       this.activeDefaultActivity = {
         ...activity
       }
+    },
+    defaultActivityReorder: function (e) {
+      console.dir(e)
+      let element = e.target
+      while (element.getAttribute('itemid') === undefined) {
+        element = element.parentElement
+      }
+      console.log(element.getAttribute('itemid'))
     },
     ...mapActions('settings', [
       'removeDefaultActivity'
