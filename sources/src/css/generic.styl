@@ -1,0 +1,36 @@
+/**
+* Makes the element blink.
+*/
+.blink {
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+/**
+* Drag & Drop section
+*/
+.draggable
+  .q-item
+    cursor: grab !important
+    &:active
+      cursor: grabbing !important
+
+// Rotation section
+/**
+* Enable rotation of an element.
+*/
+.can-rotate
+  transition: transform .8s ease-in-out
+
+/**
+* Make the element rotate on hover
+*/
+for i in (45 90 135 180 205 270 315)
+  .on-hover-rotate-{i}:hover
+    transform rotate(s('%sdeg', i))
+// End of rotation section

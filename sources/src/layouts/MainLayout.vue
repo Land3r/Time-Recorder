@@ -17,7 +17,7 @@
         </q-toolbar-title>
 
         <div>Using quasar v{{ $q.version }}</div>
-          <q-btn flat round dense icon="settings" class="can-rotate on-hover-rotate">
+          <q-btn flat round dense icon="settings" class="can-rotate on-hover-rotate-180">
             <q-menu
               transition-show="jump-down"
               transition-hide="jump-up"

@@ -1,6 +1,11 @@
-// app global css
+// Application main stylesheet
 
+// Variables
 @import 'quasar.variables'
+@import 'app.variables'
+
+// Generic styles
+@import 'generic'
 
 .header, .footer
   background: linear-gradient(145deg,$theme_color1 11%,$theme_color2 45%)
@@ -20,24 +25,8 @@ h3
 .cursor-disabled
   cursor: not-allowed
 
-.can-rotate
-  transition: transform .8s ease-in-out
-
-.on-hover-rotate:hover
-  transform: rotate(180deg)
-
 .record-status {
   width: 20px;
   height: 20px;
   border-radius: 50%
-}
-
-.blink {
-  animation: blink-animation 1s steps(5, start) infinite;
-  -webkit-animation: blink-animation 1s steps(5, start) infinite;
-}
-@keyframes blink-animation {
-  to {
-    visibility: hidden;
-  }
 }

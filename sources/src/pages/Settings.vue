@@ -31,7 +31,7 @@
               </q-item>
             </template>
             <template v-else>
-              <draggable>
+              <draggable class="draggable">
               <q-item
                 v-for="activity in defaultActivities"
                 :key="activity.id"
