@@ -2,6 +2,17 @@ import {
   ADD_ERROR, FLUSH_ERRORS,
   ADD_SYSTEM_AC, ADD_SYSTEM_BATTERY, ADD_SYSTEM_LOCK, ADD_SYSTEM_UNLOCK, ADD_SYSTEM_SLEEP, ADD_SYSTEM_SHUTDOWN, ADD_SYSTEM_RESUME, FLUSH_SYSTEM_EVENTS
 } from './types'
+import {
+  RESET_STATE, IMPORT_STATE
+} from '../types'
+
+export function resetState (context) {
+  context.commit(RESET_STATE)
+}
+
+export function importState (context, importedState) {
+  context.commit(IMPORT_STATE, importedState)
+}
 
 export function addError (context, error) {
   // TODO: Vérification des champs obligatoires.

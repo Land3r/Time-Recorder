@@ -2,8 +2,23 @@ import {
   ADD_ERROR, FLUSH_ERRORS,
   ADD_SYSTEM_AC, ADD_SYSTEM_BATTERY, ADD_SYSTEM_LOCK, ADD_SYSTEM_UNLOCK, ADD_SYSTEM_RESUME, ADD_SYSTEM_SHUTDOWN, ADD_SYSTEM_SLEEP, FLUSH_SYSTEM_EVENTS
 } from './types'
+import {
+  RESET_STATE, IMPORT_STATE
+} from '../types'
+import initialState from './state'
 
 export const mutations = {
+  [RESET_STATE] (state) {
+    const initial = initialState()
+    Object.keys(initial).forEach(key => {
+      state[key] = initial[key]
+    })
+  },
+  [IMPORT_STATE] (state, importedState) {
+    Object.keys(importedState).forEach(key => {
+      state[key] = importedState[key]
+    })
+  },
   [ADD_ERROR] (state, error) {
     state.errors.push(error)
   },

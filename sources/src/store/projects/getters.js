@@ -1,7 +1,7 @@
 export function orderedProjects (state) {
   // .concat() is used to generate a new array and do not mutate the original state array.
   return state.projects.concat().sort((element1, element2) => {
-    return element1.order < element2.order
+    return element1.order > element2.order
   })
 }
 

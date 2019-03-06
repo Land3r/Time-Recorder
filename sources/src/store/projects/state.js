@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   projects: [
     {
       id: 0,
@@ -38,4 +38,4 @@ export default {
       ]
     }
   ]
-}
+})

@@ -1,5 +1,5 @@
-export default {
+export default () => ({
   isRecording: false,
   currentRecord: null,
   records: []
-}
+})

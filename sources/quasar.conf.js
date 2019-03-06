@@ -5,9 +5,10 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'i18n',
-      'axios',
-      'vuelidate'
+      'i18n', // For internalisation of 'custom' components.
+      'quasar-lang-pack', // For internalisation of quasat components.
+      'axios', // For HTTP request.
+      'vuelidate' // For form validation.
     ],
 
     css: [

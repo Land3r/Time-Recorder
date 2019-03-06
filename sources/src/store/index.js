@@ -4,6 +4,7 @@ import merge from 'merge-objects'
 import isElectron from 'is-electron'
 import { createPersistedState, createSharedMutations } from 'vuex-electron'
 
+import { RESET_STATE } from './types'
 import application from './application'
 import settings from './settings'
 import records from './records'
@@ -24,7 +25,14 @@ const baseStoreConfig = {
     records,
     projects
   },
-
+  actions: {
+    resetState (context) {
+      context.commit(`application/${RESET_STATE}`)
+      context.commit(`settings/${RESET_STATE}`)
+      context.commit(`records/${RESET_STATE}`)
+      context.commit(`projects/${RESET_STATE}`)
+    }
+  },
   strict: process.env.NODE_ENV !== 'production'
 }
 

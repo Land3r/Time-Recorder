@@ -2,8 +2,23 @@ import {
   ADD_PROJECT, EDIT_PROJECT, REMOVE_PROJECT,
   ADD_PROJECT_ACTIVITY, EDIT_PROJECT_ACTIVITY, REMOVE_PROJECT_ACTIVITY
 } from './types'
+import {
+  RESET_STATE, IMPORT_STATE
+} from '../types'
+import initialState from './state'
 
 export const mutations = {
+  [RESET_STATE] (state) {
+    const initial = initialState()
+    Object.keys(initial).forEach(key => {
+      state[key] = initial[key]
+    })
+  },
+  [IMPORT_STATE] (state, importedState) {
+    Object.keys(importedState).forEach(key => {
+      state[key] = importedState[key]
+    })
+  },
   [ADD_PROJECT] (state, project) {
     state.projects.push(project)
   },

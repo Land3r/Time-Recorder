@@ -1,0 +1,3 @@
+export const RESET_STATE = 'RESET_STATE'
+export const IMPORT_STATE = 'IMPORT_STATE'
+export const EXPORT_STATE = 'EXPORT_STATE'

@@ -1,6 +1,17 @@
 import {
   ADD_DEFAULT_ACTIVITY, EDIT_DEFAULT_ACTIVITY, REMOVE_DEFAULT_ACTIVITY
 } from './types'
+import {
+  RESET_STATE, IMPORT_STATE
+} from '../types'
+
+export function resetState (context) {
+  context.commit(RESET_STATE)
+}
+
+export function importState (context, importedState) {
+  context.commit(IMPORT_STATE, importedState)
+}
 
 export function addDefaultActivity (context, activity) {
   // TODO: Vérification des champs obligatoires.

@@ -2,6 +2,17 @@ import {
   ADD_PROJECT, EDIT_PROJECT, REMOVE_PROJECT,
   ADD_PROJECT_ACTIVITY, EDIT_PROJECT_ACTIVITY, REMOVE_PROJECT_ACTIVITY
 } from './types'
+import {
+  RESET_STATE, IMPORT_STATE
+} from '../types'
+
+export function resetState (context) {
+  context.commit(RESET_STATE)
+}
+
+export function importState (context, importedState) {
+  context.commit(IMPORT_STATE, importedState)
+}
 
 export function addProject (context, project) {
   // TODO: Vérification des champs obligatoires.
