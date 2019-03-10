@@ -31,7 +31,9 @@
               </q-item>
             </template>
             <template v-else>
-              <draggable>
+              <draggable
+                v-model="defaultActivities"
+                :move="moveDefaultActivitiesItem">
                 <q-item
                   v-for="activity in defaultActivities"
                   :key="activity.id"
@@ -219,7 +221,7 @@ div.q-item:hover .visible-on-hover {
 </style>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import draggable from 'vuedraggable'
 
 import CreateActivityForm from '../components/form/activity/CreateActivity'
@@ -259,12 +261,16 @@ export default {
       }
     },
     defaultActivityReorder: function (e) {
+      // console.dir(e)
+      // let element = e.target
+      // while (element.getAttribute('itemid') === undefined) {
+      //   element = element.parentElement
+      // }
+      // console.log(element.getAttribute('itemid'))
+    },
+    moveDefaultActivitiesItem: function (e) {
       console.dir(e)
-      let element = e.target
-      while (element.getAttribute('itemid') === undefined) {
-        element = element.parentElement
-      }
-      console.log(element.getAttribute('itemid'))
+      return true
     },
     ...mapActions('settings', [
       'removeDefaultActivity'
@@ -274,9 +280,18 @@ export default {
     ])
   },
   computed: {
-    ...mapGetters('settings', {
-      defaultActivities: 'orderedDefaultActivities'
-    }),
+    defaultActivities: {
+      get () {
+        return this.$store.getters['settings/orderedDefaultActivities']
+      },
+      set (value) {
+        console.log(value)
+        this.$store.dispatch('settings/setDefaultActivities', value)
+      }
+    },
+    // ...mapGetters('settings', {
+    //   defaultActivities: 'orderedDefaultActivities'
+    // }),
     ...mapState('settings', [
       'events'
     ])
