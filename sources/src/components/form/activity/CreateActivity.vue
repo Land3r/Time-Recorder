@@ -68,7 +68,7 @@
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import { uid } from 'quasar'
 import icons from '../../../data/icons'
 
@@ -118,7 +118,6 @@ export default {
         if (this.mode === 'default') {
           const activity = {
             id: uid(),
-            order: this.getNextDefaultOrder,
             name: this.form.name,
             ...(this.form.label !== '' && { label: this.form.label }),
             icon: this.form.icon
@@ -128,7 +127,6 @@ export default {
         } else if (this.mode === 'project') {
           const activity = {
             id: uid(),
-            order: this.getNextProjectOrder(this.project.id),
             name: this.form.name,
             ...(this.form.label !== '' && { label: this.form.label }),
             icon: this.form.icon
@@ -156,20 +154,12 @@ export default {
     ]),
     ...mapActions('settings', [
       'addDefaultActivity'
-    ]),
-    ...mapGetters('projects', {
-      getNextProjectId: 'getNextProjectActivityId',
-      getNextProjectOrder: 'getNextProjectActivityOrder'
-    })
+    ])
   },
   computed: {
     isValid: function () {
       return !this.$v.$invalid
-    },
-    ...mapGetters('settings', {
-      getNextDefaultId: 'getNextDefaultActivityId',
-      getNextDefaultOrder: 'getNextDefaultActivityOrder'
-    })
+    }
   }
 }
 </script>

@@ -81,7 +81,6 @@ export default {
       if (!this.$v.$invalid) {
         const editedProject = {
           id: this.form.id,
-          order: this.form.order,
           name: this.form.name,
           color: this.form.color,
           bgcolor: 'bg-' + this.form.color,
@@ -98,7 +97,6 @@ export default {
     reset () {
       this.form = {
         id: 0,
-        order: 0,
         name: '',
         color: 'primary',
         bgcolor: 'bg-primary',

@@ -33,7 +33,7 @@
             <template v-else>
               <draggable
                 v-model="defaultActivities"
-                :move="moveDefaultActivitiesItem">
+              >
                 <q-item
                   v-for="activity in defaultActivities"
                   :key="activity.id"
@@ -42,7 +42,6 @@
                   class="q-my-sm draggable"
                   clickable
                   v-ripple
-                  @drop="(e) => {defaultActivityReorder(e)}"
                 >
                   <q-item-section top avatar>
                     <q-avatar color="primary" text-color="white"
@@ -64,8 +63,6 @@
                   <q-separator />
                 </q-item>
               </draggable>
-              // TODO: https://www.npmjs.com/package/vuedraggable
-              // S'abonner aux events pour pouvoir changer la prop 'order'.
             </template>
           </q-list>
         </q-card>
@@ -260,18 +257,6 @@ export default {
         ...activity
       }
     },
-    defaultActivityReorder: function (e) {
-      // console.dir(e)
-      // let element = e.target
-      // while (element.getAttribute('itemid') === undefined) {
-      //   element = element.parentElement
-      // }
-      // console.log(element.getAttribute('itemid'))
-    },
-    moveDefaultActivitiesItem: function (e) {
-      console.dir(e)
-      return true
-    },
     ...mapActions('settings', [
       'removeDefaultActivity'
     ]),
@@ -282,16 +267,12 @@ export default {
   computed: {
     defaultActivities: {
       get () {
-        return this.$store.getters['settings/orderedDefaultActivities']
+        return this.$store.state.settings.defaultActivities
       },
       set (value) {
-        console.log(value)
         this.$store.dispatch('settings/setDefaultActivities', value)
       }
     },
-    // ...mapGetters('settings', {
-    //   defaultActivities: 'orderedDefaultActivities'
-    // }),
     ...mapState('settings', [
       'events'
     ])

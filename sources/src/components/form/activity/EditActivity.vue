@@ -119,7 +119,6 @@ export default {
         if (this.mode === 'default') {
           const activity = {
             id: this.form.id,
-            order: this.form.order,
             name: this.form.name,
             ...(this.form.label !== '' && { label: this.form.label }),
             icon: this.form.icon
@@ -129,7 +128,6 @@ export default {
         } else if (this.mode === 'project') {
           const activity = {
             id: this.form.id,
-            order: this.form.order,
             name: this.form.name,
             ...(this.form.label !== '' && { label: this.form.label }),
             icon: this.form.icon

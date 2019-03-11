@@ -23,10 +23,10 @@ export const mutations = {
     state.projects.push(project)
   },
   [EDIT_PROJECT] (state, project) {
-    state.projects = [
-      ...state.projects.filter((element) => element.id !== project.id),
-      project
-    ]
+    let index = state.projects.findIndex(e => e.id === project.id)
+    state.projects[index] = {
+      ...project
+    }
   },
   [REMOVE_PROJECT] (state, id) {
     state.projects = [

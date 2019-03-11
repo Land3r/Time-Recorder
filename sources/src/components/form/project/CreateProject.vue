@@ -57,7 +57,7 @@
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import { uid } from 'quasar'
 import colors from '../../../data/colors'
 
@@ -90,7 +90,6 @@ export default {
         // TODO: If importStandardActivities, retrieve and set it into activities []
         const project = {
           id: uid(),
-          order: this.getNextOrder,
           name: this.form.name,
           color: this.form.color,
           bgcolor: 'bg-' + this.form.color,
@@ -109,11 +108,7 @@ export default {
   computed: {
     isValid: function () {
       return !this.$v.$invalid
-    },
-    ...mapGetters('projects', {
-      getNextId: 'getNextProjectId',
-      getNextOrder: 'getNextProjectOrder'
-    })
+    }
   }
 }
 </script>
