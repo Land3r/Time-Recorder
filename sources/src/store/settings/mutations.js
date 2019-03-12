@@ -1,5 +1,6 @@
 import {
   ADD_DEFAULT_ACTIVITY, EDIT_DEFAULT_ACTIVITY, REMOVE_DEFAULT_ACTIVITY, SET_DEFAULT_ACTIVITIES,
+  SET_USERNAME,
   EDIT_EVENTS, TOGGLE_EVENT
 } from './types'
 import {
@@ -37,6 +38,9 @@ export const mutations = {
     state.defaultActivities = [
       ...defaultActivities
     ]
+  },
+  [SET_USERNAME] (state, username) {
+    state.username = username
   },
   [EDIT_EVENTS] (state, events) {
     state.events = {

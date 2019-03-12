@@ -25,7 +25,7 @@
         label="Couleur du texte"
         v-model="form.textcolor"
         @blur="$v.form.textcolor.$touch"
-        :options="colors"
+        :options="fontcolors"
         :error="$v.form.textcolor.$error"
       >
       </q-select>
@@ -60,6 +60,7 @@ import { required, minLength } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
 import { uid } from 'quasar'
 import colors from '../../../data/colors'
+import fontcolors from '../../../data/fontcolors'
 
 export default {
   name: 'CreateProjectForm',
@@ -72,7 +73,8 @@ export default {
         textcolor: '',
         importStandardActivities: false
       },
-      colors: colors
+      colors: colors,
+      fontcolors: fontcolors
     }
   },
   validations: {

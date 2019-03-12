@@ -10,6 +10,7 @@
       <div class="col-md-4 q-pa-xs"
         v-for="project in projects"
         :key="project.id"
+        :itemid="project.id"
       >
         <q-toolbar
           :class="project.bgcolor"
@@ -139,7 +140,7 @@
 </style>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import CreateProjectForm from '../components/form/project/CreateProject'
 import EditProjectForm from '../components/form/project/EditProject'
@@ -177,9 +178,9 @@ export default {
     ])
   },
   computed: {
-    ...mapGetters('projects', {
-      projects: 'orderedProjects'
-    })
+    ...mapState('projects', [
+      'projects'
+    ])
   }
 }
 </script>

@@ -1,5 +1,6 @@
 import {
-  ADD_DEFAULT_ACTIVITY, EDIT_DEFAULT_ACTIVITY, REMOVE_DEFAULT_ACTIVITY, SET_DEFAULT_ACTIVITIES
+  ADD_DEFAULT_ACTIVITY, EDIT_DEFAULT_ACTIVITY, REMOVE_DEFAULT_ACTIVITY, SET_DEFAULT_ACTIVITIES,
+  SET_USERNAME
 } from './types'
 import {
   RESET_STATE, IMPORT_STATE
@@ -28,4 +29,8 @@ export function removeDefaultActivity (context, activityId) {
 
 export function setDefaultActivities (context, activities) {
   context.commit(SET_DEFAULT_ACTIVITIES, activities)
+}
+
+export function setUsername (context, username) {
+  context.commit(SET_USERNAME, username)
 }
