@@ -15,6 +15,17 @@ const routes = [
         }
       },
       {
+        path: 'record',
+        name: 'Record',
+        component: () => import('pages/Record.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
+            { id: 1, label: 'Enregistrement', icon: 'timer' }
+          ]
+        }
+      },
+      {
         path: 'projects',
         name: 'Projects',
         component: () => import('pages/Projects.vue'),

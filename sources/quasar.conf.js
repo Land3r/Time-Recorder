@@ -53,7 +53,9 @@ module.exports = function (ctx) {
         'QToggle',
         'QSelect',
         'QExpansionItem',
-        'QImg'
+        'QImg',
+        'QTimeline',
+        'QTimelineEntry'
       ],
 
       directives: [

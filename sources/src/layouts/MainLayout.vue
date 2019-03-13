@@ -84,6 +84,14 @@
             <q-item-label>Graphiques</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item clickable tag="a" to="/record">
+          <q-item-section avatar>
+            <q-icon name="business" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Enregistrement</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
       <q-list class="fixed-bottom">
         <q-item clickable tag="a" target="_blank" @click="openExternal('https://github.com/land3r/time-recorder')">
