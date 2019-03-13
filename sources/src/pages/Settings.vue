@@ -165,7 +165,7 @@ import EditActivityForm from '../components/form/activity/EditActivity'
 import EditProfileForm from '../components/form/settings/EditProfile'
 import EditSystemEventsForm from '../components/form/settings/EditSystemEvents'
 const electron = require('electron')
-import { OPEN_FILE } from '../../src-electron/ipc-events-types'
+import { OPEN_FILE, OPEN_FILE_RESPONSE } from '../../src-electron/ipc-events-types'
 
 export default {
   name: 'SettingsIndex',
@@ -216,12 +216,25 @@ export default {
       }
       const data = formatJson.plain(vuexState)
       await save(data, 'time-recorder.json')
+
+      this.$q.notify({
+        message: 'Données exportées',
+        color: 'positive'
+      })
     },
     importStateFromFile: function () {
-      electron.ipcRenderer.send(OPEN_FILE, { callback: this.importStateFromFileCallback })
-    },
-    importStateFromFileCallback: function (data) {
-      console.log(data)
+      electron.ipcRenderer.once(OPEN_FILE_RESPONSE, (event, args) => {
+        const importedState = JSON.parse(args)
+        this.importApplicationState(importedState.application)
+        this.importProjectsState(importedState.projects)
+        this.importRecordsState(importedState.records)
+        this.importSettingsState(importedState.settings)
+        this.$q.notify({
+          message: 'Données importées',
+          color: 'positive'
+        })
+      })
+      electron.ipcRenderer.send(OPEN_FILE)
     },
     ...mapGetters('application', {
       exportApplicationState: 'getState'
@@ -234,6 +247,18 @@ export default {
     }),
     ...mapGetters('settings', {
       exportSettingsState: 'getState'
+    }),
+    ...mapActions('application', {
+      importApplicationState: 'importState'
+    }),
+    ...mapActions('projects', {
+      importProjectsState: 'importState'
+    }),
+    ...mapActions('records', {
+      importRecordsState: 'importState'
+    }),
+    ...mapActions('settings', {
+      importSettingsState: 'importState'
     })
   },
   computed: {

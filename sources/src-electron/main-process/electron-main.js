@@ -1,7 +1,7 @@
 import electron from 'electron'
 import fs from 'fs'
 import storeFunc from '../../src/store/index'
-import { EXIT_APPLICATION, OPEN_EXTERNAL_URL, OPEN_FILE } from '../ipc-events-types'
+import { EXIT_APPLICATION, OPEN_EXTERNAL_URL, OPEN_FILE, OPEN_FILE_RESPONSE } from '../ipc-events-types'
 
 /**
  * Set `__statics` path to static files in production;
@@ -105,7 +105,6 @@ electron.ipcMain.on(OPEN_EXTERNAL_URL, (event, args) => {
 })
 
 electron.ipcMain.on(OPEN_FILE, (event, args) => {
-  console.log(args)
   const filepaths = electron.dialog.showOpenDialog({
     properties: ['openFile'],
     filters: [
@@ -119,11 +118,11 @@ electron.ipcMain.on(OPEN_FILE, (event, args) => {
     const filepath = filepaths[0]
     fs.access(filepath, fs.F_OK, (err) => {
       if (!err) {
-        fs.readFile(filepath, (err, data) => {
+        fs.readFile(filepath, 'utf8', (err, data) => {
           if (err) {
             throw err
           } else {
-            args.callback(data)
+            event.sender.send(OPEN_FILE_RESPONSE, data)
           }
         })
       }
