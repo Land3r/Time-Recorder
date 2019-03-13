@@ -1,2 +1,5 @@
-export function someGetter (/* state */) {
+export function getState (state) {
+  return {
+    application: state
+  }
 }

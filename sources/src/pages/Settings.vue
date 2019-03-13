@@ -99,8 +99,21 @@
       </q-expansion-item>
       <q-expansion-item group="settings" icon="import_export" key="import_export" label="Import / Export" :header-class="getHeaderClass('import_export')" @show="setActiveExpansionItem('import_export')">
         <q-card>
-          <h3>Export</h3>
-          <h3>Import</h3>
+          <div class="row">
+            <div class="col q-px-xs">
+              <h3>Import</h3>
+              <center>
+                <q-btn color="primary" @click="importStateFromFile">Import</q-btn>
+              </center>
+            </div>
+            <div class="col q-px-xs">
+              <h3>Export</h3>
+              <br />
+              <center>
+                <q-btn color="primary" @click="exportStateToFile">Export</q-btn>
+              </center>
+            </div>
+          </div>
         </q-card>
       </q-expansion-item>
       <q-expansion-item group="settings" icon="delete_forever" key="reset" label="Reset" :header-class="getHeaderClass('reset')" @show="setActiveExpansionItem('reset')">
@@ -142,13 +155,17 @@ div.q-item:hover .visible-on-hover {
 </style>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import draggable from 'vuedraggable'
+import { save } from 'save-file'
+import formatJson from 'format-json'
 
 import CreateActivityForm from '../components/form/activity/CreateActivity'
 import EditActivityForm from '../components/form/activity/EditActivity'
 import EditProfileForm from '../components/form/settings/EditProfile'
 import EditSystemEventsForm from '../components/form/settings/EditSystemEvents'
+const electron = require('electron')
+import { OPEN_FILE } from '../../src-electron/ipc-events-types'
 
 export default {
   name: 'SettingsIndex',
@@ -189,7 +206,35 @@ export default {
     ]),
     ...mapActions([
       'resetState'
-    ])
+    ]),
+    exportStateToFile: async function () {
+      const vuexState = {
+        ...this.exportApplicationState(),
+        ...this.exportProjectsState(),
+        ...this.exportRecordsState(),
+        ...this.exportSettingsState()
+      }
+      const data = formatJson.plain(vuexState)
+      await save(data, 'time-recorder.json')
+    },
+    importStateFromFile: function () {
+      electron.ipcRenderer.send(OPEN_FILE, { callback: this.importStateFromFileCallback })
+    },
+    importStateFromFileCallback: function (data) {
+      console.log(data)
+    },
+    ...mapGetters('application', {
+      exportApplicationState: 'getState'
+    }),
+    ...mapGetters('projects', {
+      exportProjectsState: 'getState'
+    }),
+    ...mapGetters('records', {
+      exportRecordsState: 'getState'
+    }),
+    ...mapGetters('settings', {
+      exportSettingsState: 'getState'
+    })
   },
   computed: {
     defaultActivities: {

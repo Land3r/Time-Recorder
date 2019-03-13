@@ -1,6 +1,6 @@
 export default () => ({
   username: '',
-  lang: '',
+  lang: 'fr',
   dateFormat: '',
   events: {
     watch_sleep: true,
