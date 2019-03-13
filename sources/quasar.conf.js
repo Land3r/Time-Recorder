@@ -52,7 +52,8 @@ module.exports = function (ctx) {
         'QInput',
         'QToggle',
         'QSelect',
-        'QExpansionItem'
+        'QExpansionItem',
+        'QImg'
       ],
 
       directives: [

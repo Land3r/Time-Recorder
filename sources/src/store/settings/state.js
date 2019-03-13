@@ -1,5 +1,7 @@
 export default () => ({
   username: '',
+  lang: '',
+  dateFormat: '',
   events: {
     watch_sleep: true,
     watch_resume: true,

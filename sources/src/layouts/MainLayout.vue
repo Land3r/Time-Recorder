@@ -27,7 +27,7 @@
                   <q-item-section avatar>
                     <q-icon name="settings" />
                   </q-item-section>
-                  <q-item-section>Settings</q-item-section>
+                  <q-item-section>Paramètres</q-item-section>
                 </q-item>
                 <q-separator />
                 <q-item clickable v-close-menu @click="requestCloseApplication()">

@@ -1,7 +1,9 @@
 import {
-  ADD_DEFAULT_ACTIVITY, EDIT_DEFAULT_ACTIVITY, REMOVE_DEFAULT_ACTIVITY, SET_DEFAULT_ACTIVITIES,
   SET_USERNAME,
-  EDIT_EVENTS, TOGGLE_EVENT
+  SET_LANG,
+  SET_DATEFORMAT,
+  EDIT_EVENTS, TOGGLE_EVENT,
+  ADD_DEFAULT_ACTIVITY, EDIT_DEFAULT_ACTIVITY, REMOVE_DEFAULT_ACTIVITY, SET_DEFAULT_ACTIVITIES
 } from './types'
 import {
   RESET_STATE, IMPORT_STATE
@@ -19,6 +21,27 @@ export const mutations = {
     Object.keys(importedState).forEach(key => {
       state[key] = importedState[key]
     })
+  },
+  [SET_USERNAME] (state, username) {
+    state.username = username
+  },
+  [SET_LANG] (state, lang) {
+    state.lang = lang
+  },
+  [SET_DATEFORMAT] (state, dateFormat) {
+    state.dateFormat = dateFormat
+  },
+  [EDIT_EVENTS] (state, events) {
+    state.events = {
+      ...state.events,
+      ...events
+    }
+  },
+  [TOGGLE_EVENT] (state, event) {
+    state.events = {
+      ...state.events,
+      event: !state.events[event]
+    }
   },
   [ADD_DEFAULT_ACTIVITY] (state, activity) {
     state.defaultActivities.push(activity)
@@ -38,20 +61,5 @@ export const mutations = {
     state.defaultActivities = [
       ...defaultActivities
     ]
-  },
-  [SET_USERNAME] (state, username) {
-    state.username = username
-  },
-  [EDIT_EVENTS] (state, events) {
-    state.events = {
-      ...state.events,
-      ...events
-    }
-  },
-  [TOGGLE_EVENT] (state, event) {
-    state.events = {
-      ...state.events,
-      event: !state.events[event]
-    }
   }
 }

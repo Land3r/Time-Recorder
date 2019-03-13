@@ -2,15 +2,13 @@
   <q-page class="q-px-md q-py-lg">
     <div>
       <h1>
-        Réglages
+        Paramètres
       </h1>
     </div>
 
     <q-list bordered>
       <q-expansion-item group="settings" icon="perm_identity" key="user" label="Utilisateur" default-opened :header-class="getHeaderClass('user')" @show="setActiveExpansionItem('user')">
-        <q-card>
-          <h3>Mon profil</h3>
-        </q-card>
+        <app-editprofileform />
       </q-expansion-item>
       <q-expansion-item group="settings" icon="list" key="activities" label="Activités" :header-class="getHeaderClass('activities')" @show="setActiveExpansionItem('activities')">
         <q-card>
@@ -18,7 +16,7 @@
             Activités par defaut
             <q-btn round color="positive" icon="add" class="float-right" @click="addDefaultActivityModalShown = true"/>
           </h3>
-          <q-list bordered>
+          <q-list bordered class="q-pa-md">
             <template v-if="defaultActivities.length == 0">
               <q-item class="bg-grey cursor-disabled">
                 <q-item-section top avatar>
@@ -97,81 +95,7 @@
         </q-dialog>
       </q-expansion-item>
       <q-expansion-item group="settings" icon="timer" key="recorder" label="Enregisteur" :header-class="getHeaderClass('recorder')" @show="setActiveExpansionItem('recorder')">
-        <q-card>
-          <h3>Evenements systemes</h3>
-          <br />
-          <q-list bordered>
-            <q-item multiline tag="label" v-ripple>
-              <q-item-section>
-                <q-item-label>Sleep</q-item-label>
-                <q-item-label caption>Surveiller la mise en veille</q-item-label>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-toggle v-model="watchEvents.watch_sleep" />
-              </q-item-section>
-            </q-item>
-            <q-item multiline tag="label" v-ripple>
-              <q-item-section>
-                <q-item-label>Resume</q-item-label>
-                <q-item-label caption>Surveiller la reprise du systeme</q-item-label>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-toggle v-model="watchEvents.watch_resume" />
-              </q-item-section>
-            </q-item>
-            <q-item multiline tag="label" v-ripple>
-              <q-item-section>
-                <q-item-label>Shutdown</q-item-label>
-                <q-item-label caption>Surveiller l'arret</q-item-label>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-toggle v-model="watchEvents.watch_shutdown" />
-              </q-item-section>
-            </q-item>
-            <q-item multiline tag="label" v-ripple>
-              <q-item-section>
-                <q-item-label>Lock</q-item-label>
-                <q-item-label caption>Surveiller le verouillage de session</q-item-label>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-toggle v-model="watchEvents.watch_lock" />
-              </q-item-section>
-            </q-item>
-            <q-item multiline tag="label" v-ripple>
-              <q-item-section>
-                <q-item-label>Unlock</q-item-label>
-                <q-item-label caption>Surveiller le déverouillage de session</q-item-label>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-toggle v-model="watchEvents.watch_unlock" />
-              </q-item-section>
-            </q-item>
-            <q-item multiline tag="label" v-ripple>
-              <q-item-section>
-                <q-item-label>AC</q-item-label>
-                <q-item-label caption>Surveiller le passage sur secteur</q-item-label>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-toggle v-model="watchEvents.watch_ac" />
-              </q-item-section>
-            </q-item>
-            <q-item multiline tag="label" v-ripple>
-              <q-item-section>
-                <q-item-label>Battery</q-item-label>
-                <q-item-label caption>Surveiller le passage sur batterie</q-item-label>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-toggle v-model="watchEvents.watch_battery" />
-              </q-item-section>
-            </q-item>
-          </q-list>
-          <br />
-          <br />
-          <center>
-            <q-btn @click="saveEvents()" color="positive" :disable="JSON.stringify(watchEvents) === JSON.stringify(events)" >Appliquer</q-btn>
-          </center>
-          <br />
-        </q-card>
+        <app-editsystemeventsform />
       </q-expansion-item>
       <q-expansion-item group="settings" icon="import_export" key="import_export" label="Import / Export" :header-class="getHeaderClass('import_export')" @show="setActiveExpansionItem('import_export')">
         <q-card>
@@ -218,16 +142,20 @@ div.q-item:hover .visible-on-hover {
 </style>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import draggable from 'vuedraggable'
 
 import CreateActivityForm from '../components/form/activity/CreateActivity'
 import EditActivityForm from '../components/form/activity/EditActivity'
+import EditProfileForm from '../components/form/settings/EditProfile'
+import EditSystemEventsForm from '../components/form/settings/EditSystemEvents'
 
 export default {
   name: 'SettingsIndex',
   components: {
     draggable,
+    'app-editprofileform': EditProfileForm,
+    'app-editsystemeventsform': EditSystemEventsForm,
     'app-createactivityform': CreateActivityForm,
     'app-editactivityform': EditActivityForm
   },
@@ -238,7 +166,6 @@ export default {
         id: 0,
         name: ''
       },
-      watchEvents: null, // watchEvents is alimented in the created hook
       'addDefaultActivityModalShown': false,
       'editDefaultActivityModalShown': false,
       'confirmDeleteDefaultActivityDialogShown': false,
@@ -272,14 +199,6 @@ export default {
       set (value) {
         this.$store.dispatch('settings/setDefaultActivities', value)
       }
-    },
-    ...mapState('settings', [
-      'events'
-    ])
-  },
-  created: function () {
-    this.watchEvents = {
-      ...this.events
     }
   }
 }
