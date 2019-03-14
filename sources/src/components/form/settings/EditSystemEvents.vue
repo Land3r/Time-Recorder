@@ -4,6 +4,9 @@
     <br />
     <q-list bordered class="q-pa-md">
       <q-item multiline tag="label" v-ripple>
+        <q-item-section avatar>
+          <q-icon color="primary" name="brightness_3" />
+        </q-item-section>
         <q-item-section>
           <q-item-label>Sleep</q-item-label>
           <q-item-label caption>Surveiller la mise en veille</q-item-label>
@@ -13,6 +16,9 @@
         </q-item-section>
       </q-item>
       <q-item multiline tag="label" v-ripple>
+        <q-item-section avatar>
+          <q-icon color="primary" name="brightness_5" />
+        </q-item-section>
         <q-item-section>
           <q-item-label>Resume</q-item-label>
           <q-item-label caption>Surveiller la reprise du systeme</q-item-label>
@@ -22,6 +28,9 @@
         </q-item-section>
       </q-item>
       <q-item multiline tag="label" v-ripple>
+        <q-item-section avatar>
+          <q-icon color="primary" name="exit_to_app" />
+        </q-item-section>
         <q-item-section>
           <q-item-label>Shutdown</q-item-label>
           <q-item-label caption>Surveiller l'arret</q-item-label>
@@ -31,6 +40,9 @@
         </q-item-section>
       </q-item>
       <q-item multiline tag="label" v-ripple>
+        <q-item-section avatar>
+          <q-icon color="primary" name="lock" />
+        </q-item-section>
         <q-item-section>
           <q-item-label>Lock</q-item-label>
           <q-item-label caption>Surveiller le verouillage de session</q-item-label>
@@ -40,6 +52,9 @@
         </q-item-section>
       </q-item>
       <q-item multiline tag="label" v-ripple>
+        <q-item-section avatar>
+          <q-icon color="primary" name="lock_open" />
+        </q-item-section>
         <q-item-section>
           <q-item-label>Unlock</q-item-label>
           <q-item-label caption>Surveiller le déverouillage de session</q-item-label>
@@ -49,6 +64,9 @@
         </q-item-section>
       </q-item>
       <q-item multiline tag="label" v-ripple>
+        <q-item-section avatar>
+          <q-icon color="primary" name="battery_charging_full" />
+        </q-item-section>
         <q-item-section>
           <q-item-label>AC</q-item-label>
           <q-item-label caption>Surveiller le passage sur secteur</q-item-label>
@@ -58,6 +76,9 @@
         </q-item-section>
       </q-item>
       <q-item multiline tag="label" v-ripple>
+        <q-item-section avatar>
+          <q-icon color="primary" name="battery_std" />
+        </q-item-section>
         <q-item-section>
           <q-item-label>Battery</q-item-label>
           <q-item-label caption>Surveiller le passage sur batterie</q-item-label>

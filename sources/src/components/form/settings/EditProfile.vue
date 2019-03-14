@@ -48,6 +48,7 @@
             label="Format des dates"
             @blur="$v.form.dateFormat.$touch"
             :error="$v.form.dateFormat.$error"
+            hint="Vous pouvez utiliser n'importe quel format de quasar framework (https://v1.quasar-framework.org/quasar-utils/date-utils#Format-for-display)"
           />
         </div>
         <div class="col q-pl-sm">

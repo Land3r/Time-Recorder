@@ -108,7 +108,6 @@
             </div>
             <div class="col q-px-xs">
               <h3>Export</h3>
-              <br />
               <center>
                 <q-btn color="primary" @click="exportStateToFile">Export</q-btn>
               </center>

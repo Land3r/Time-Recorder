@@ -1,7 +1,7 @@
 export default () => ({
   username: '',
   lang: 'fr',
-  dateFormat: '',
+  dateFormat: 'dddd DD MMMM YYYY - HH:mm',
   events: {
     watch_sleep: true,
     watch_resume: true,
