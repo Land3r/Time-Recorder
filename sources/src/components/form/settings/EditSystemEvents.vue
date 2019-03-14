@@ -5,7 +5,7 @@
     <q-list bordered class="q-pa-md">
       <q-item multiline tag="label" v-ripple>
         <q-item-section avatar>
-          <q-icon color="primary" name="brightness_3" />
+          <q-icon color="primary" :name="getIcon('sleep')" />
         </q-item-section>
         <q-item-section>
           <q-item-label>Sleep</q-item-label>
@@ -17,7 +17,7 @@
       </q-item>
       <q-item multiline tag="label" v-ripple>
         <q-item-section avatar>
-          <q-icon color="primary" name="brightness_5" />
+          <q-icon color="primary" :name="getIcon('resume')" />
         </q-item-section>
         <q-item-section>
           <q-item-label>Resume</q-item-label>
@@ -29,7 +29,7 @@
       </q-item>
       <q-item multiline tag="label" v-ripple>
         <q-item-section avatar>
-          <q-icon color="primary" name="exit_to_app" />
+          <q-icon color="primary" :name="getIcon('shutdown')" />
         </q-item-section>
         <q-item-section>
           <q-item-label>Shutdown</q-item-label>
@@ -41,7 +41,7 @@
       </q-item>
       <q-item multiline tag="label" v-ripple>
         <q-item-section avatar>
-          <q-icon color="primary" name="lock" />
+          <q-icon color="primary" :name="getIcon('lock')" />
         </q-item-section>
         <q-item-section>
           <q-item-label>Lock</q-item-label>
@@ -53,7 +53,7 @@
       </q-item>
       <q-item multiline tag="label" v-ripple>
         <q-item-section avatar>
-          <q-icon color="primary" name="lock_open" />
+          <q-icon color="primary" :name="getIcon('unlock')" />
         </q-item-section>
         <q-item-section>
           <q-item-label>Unlock</q-item-label>
@@ -65,7 +65,7 @@
       </q-item>
       <q-item multiline tag="label" v-ripple>
         <q-item-section avatar>
-          <q-icon color="primary" name="battery_charging_full" />
+          <q-icon color="primary" :name="getIcon('ac')" />
         </q-item-section>
         <q-item-section>
           <q-item-label>AC</q-item-label>
@@ -77,7 +77,7 @@
       </q-item>
       <q-item multiline tag="label" v-ripple>
         <q-item-section avatar>
-          <q-icon color="primary" name="battery_std" />
+          <q-icon color="primary" :name="getIcon('battery')" />
         </q-item-section>
         <q-item-section>
           <q-item-label>Battery</q-item-label>
@@ -103,6 +103,8 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
+import { getIcon } from '../../../helpers/system-events'
+
 export default {
   name: 'EditSystemEventsForm',
   data: function () {
@@ -111,6 +113,9 @@ export default {
     }
   },
   methods: {
+    getIcon: function (name) {
+      return getIcon(name)
+    },
     saveEvents: function () {
       this.editEvents(this.watchEvents)
 

@@ -126,6 +126,12 @@ export default {
             categoryId: '3af1adad-af24-4a15-aebc-d373d3c4ff64',
             comment: 'none'
           }
+        ],
+        events: [
+          {
+            name: 'sleep',
+            occuredAt: 1552569241859
+          }
         ]
       }
     }
