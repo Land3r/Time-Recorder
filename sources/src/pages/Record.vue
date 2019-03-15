@@ -9,7 +9,7 @@
         <q-timeline-entry
           v-for="segment in formatedRecord.segments"
           :key="segment.id"
-          title="Test"
+          :title="getActivityFullName()(segment.categoryId)"
           :subtitle="segment.startedAt"
         >
           <div>
@@ -98,7 +98,7 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { date } from 'quasar'
 
 export default {
@@ -131,6 +131,10 @@ export default {
           {
             name: 'sleep',
             occuredAt: 1552569241859
+          },
+          {
+            name: 'resume',
+            occuredAt: 1552570241859
           }
         ]
       }
@@ -142,11 +146,103 @@ export default {
     },
     formatTime: function (datetime) {
       return date.formatDate(datetime, 'HH:mm:ss')
-    }
+    },
+    ...mapGetters('projects', [
+      'getActivityFullName'
+    ])
   },
   computed: {
     formatedRecord: function () {
       let segments = [ ...this.record.segments ]
+
+      let events = []
+      if (this.record.events.length != null && this.record.events.length) {
+        events = this.record.events.concat().sort(function (event1, event2) {
+          return event1.occuredAt > event2.occuredAt
+        })
+
+        let eventStack = []
+        eventStack['sleep'] = null
+        eventStack['shutdown'] = null
+        eventStack['resume'] = null
+        eventStack['lock'] = null
+        eventStack['unlock'] = null
+        eventStack['battery'] = null
+        eventStack['ac'] = null
+        let additionalSegments = []
+        let currentEvent = null
+        for (let i = 0; i < events.length; i++) {
+          currentEvent = events[i]
+
+          if (currentEvent.name === 'sleep') {
+            // Sleep is a segment begining event.
+            eventStack['sleep'] = currentEvent
+          } else if (currentEvent.name === 'shutdown') {
+            // Shutdown is a segment begining event.
+            eventStack['shutdown'] = currentEvent
+          } else if (currentEvent.name === 'resume') {
+            // Resume is a segment ending event for Resume/Shutdown event.
+            if (eventStack['shutdown'] !== null) {
+              let segment = {
+                startedAt: eventStack['shutdown'].occuredAt,
+                endedAt: currentEvent.occuredAt,
+                comment: 'Shutdowned'
+              }
+              additionalSegments.push(segment)
+              eventStack['shutdown'] = null
+            } else if (eventStack['sleep'] !== null) {
+              let segment = {
+                startedAt: eventStack['sleep'].occuredAt,
+                endedAt: currentEvent.occuredAt,
+                comment: 'Sleeped'
+              }
+              additionalSegments.push(segment)
+              eventStack['sleep'] = null
+            }
+          } else if (currentEvent.name === 'lock') {
+            // Lock is a segment begining event.
+            eventStack['lock'] = currentEvent
+          } else if (currentEvent.name === 'unlock') {
+            // Unlock is a segment ending event for lock event.
+            if (eventStack['lock'] !== null) {
+              let segment = {
+                startedAt: eventStack['lock'].occuredAt,
+                endedAt: currentEvent.occuredAt,
+                comment: 'Locked'
+              }
+              additionalSegments.push(segment)
+              eventStack['lock'] = null
+            }
+          } else if (currentEvent.name === 'battery') {
+            // Battery is a segment begining event and ending event for ac.
+            if (eventStack['ac'] !== null) {
+              let segment = {
+                startedAt: eventStack['ac'].occuredAt,
+                endedAt: currentEvent.occuredAt,
+                comment: 'Moved'
+              }
+              additionalSegments.push(segment)
+              eventStack['ac'] = null
+            } else {
+              eventStack['battery'] = currentEvent
+            }
+          } else if (currentEvent.name === 'ac') {
+            // AC is a segment begining event and ending event for battery.
+            if (eventStack['battery'] !== null) {
+              let segment = {
+                startedAt: eventStack['battery'].occuredAt,
+                endedAt: currentEvent.occuredAt,
+                comment: 'Moved'
+              }
+              additionalSegments.push(segment)
+              eventStack['battery'] = null
+            } else {
+              eventStack['ac'] = currentEvent
+            }
+          }
+        }
+      }
+
       let formatedSegments = segments.map((element) => {
         let { startedAt, endedAt, ...rest } = element
         let startedAtFormated = this.formatTime(startedAt)
