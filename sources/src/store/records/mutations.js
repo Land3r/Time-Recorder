@@ -1,5 +1,6 @@
 import {
-  START_RECORD, END_RECORD
+  START_RECORD, END_RECORD,
+  START_SEGMENT, EDIT_SEGMENT, END_SEGMENT
 } from './types'
 import {
   RESET_STATE, IMPORT_STATE
@@ -18,11 +19,12 @@ export const mutations = {
       state[key] = importedState[key]
     })
   },
-  [START_RECORD] (state, activity) {
+  [START_RECORD] (state, record) {
     state.isRecording = true
     state.currentRecord = {
-      startedAt: Date.now(),
-      activity: activity
+      segments: [],
+      ...record,
+      startedAt: Date.now()
     }
   },
   [END_RECORD] (state) {
@@ -32,5 +34,28 @@ export const mutations = {
       endedAt: endedAt
     })
     state.isRecording = false
+    state.currentRecord = null
+  },
+  [START_SEGMENT] (state, segment) {
+    let startedAt = Date.now()
+    state.currenSegment = {
+      ...segment,
+      startedAt: startedAt
+    }
+  },
+  [EDIT_SEGMENT] (state, segment) {
+    state.currentSegment = {
+      ...state.currentSegment,
+      ...segment
+    }
+  },
+  [END_SEGMENT] (state) {
+    let endedAt = Date.now()
+    state.currentSegment = {
+      ...state.currentSegment,
+      endedAt: endedAt
+    }
+    state.currentRecord.segments.push(state.currentSegment)
+    state.currentSegment = null
   }
 }

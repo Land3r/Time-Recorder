@@ -8,7 +8,8 @@ module.exports = function (ctx) {
       'i18n', // For internalisation of 'custom' components.
       'quasar-lang-pack', // For internalisation of quasat components.
       'axios', // For HTTP request.
-      'vuelidate' // For form validation.
+      'vuelidate', // For form validation.
+      'timers' // For vue-timers
     ],
 
     css: [
@@ -93,7 +94,7 @@ module.exports = function (ctx) {
     },
 
     devServer: {
-      // https: true,
+      https: true,
       // port: 8080,
       open: true // opens browser window automatically
     },
