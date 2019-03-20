@@ -10,12 +10,37 @@
           <div :class="getRecordStatusClass" class="float-left q-mr-sm"></div>
           <span class="text-h5">{{dateDifference}}</span>
           <span> | </span>
-          <span>Activitée non precisée</span>
+          <span>{{isInSegment ? getCurrentSegmentActivityName : 'Activitée non precisée'}}</span>
+          <span class="float-right">{{currentDay}}</span>
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <div class="text-h6">Our Changing Planet</div>
-          <div class="text-subtitle2">by John Doe</div>
+          <div class="row">
+            <div class="col">
+              <span class="text-h5">Projet</span>
+              <br />
+              <div>
+                <q-list bordered separator>
+                  <q-item
+                    v-for="project in projects"
+                    :key="project.id"
+                    clickable
+                    v-ripple
+                    :class="project.bgcolor"
+                    :font-color="project.fontcolor"
+                    @click="selectedProject = project"
+                  >
+                    <q-item-section>{{project.name}}</q-item-section>
+                    <q-item-section side>Side</q-item-section>
+                  </q-item>
+                </q-list>
+              </div>
+            </div>
+            <div class="col">
+              <span class="text-h5">Activité</span>
+              <br />
+            </div>
+          </div>
         </q-card-section>
 
         <q-card-actions>
@@ -41,7 +66,10 @@ export default {
   },
   data: function () {
     return {
-      dateDifference: this.updateTimer()
+      dateDifference: this.updateTimer(),
+      currentDay: date.formatDate(Date.now(), 'dddd DD MMMM YYYY'),
+      selectedProject: null,
+      selectedActivity: null
     }
   },
   timers: {
@@ -78,13 +106,18 @@ export default {
   },
   computed: {
     ...mapGetters('records', [
-      'getRecordStatusClass'
+      'getRecordStatusClass',
+      'isInSegment',
+      'getCurrentSegmentActivityName'
     ]),
     ...mapState('records', {
       isRecording: 'isRecording',
       record: 'currentRecord',
       segment: 'currentSegment'
-    })
+    }),
+    ...mapState('projects', [
+      'projects'
+    ])
   }
 }
 </script>
