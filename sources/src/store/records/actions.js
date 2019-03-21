@@ -1,6 +1,6 @@
 import {
   START_RECORD, END_RECORD,
-  START_SEGMENT, EDIT_SEGMENT, END_SEGMENT
+  START_SEGMENT, EDIT_SEGMENT, END_SEGMENT, CANCEL_SEGMENT
 } from './types'
 import {
   RESET_STATE, IMPORT_STATE
@@ -33,4 +33,8 @@ export function endSegment (context) {
 
 export function editSegment (context, segment) {
   context.commit(EDIT_SEGMENT, segment)
+}
+
+export function cancelSegment (context) {
+  context.commit(CANCEL_SEGMENT)
 }

@@ -16,7 +16,7 @@
         <q-separator />
         <q-card-section>
           <div class="row">
-            <div class="col">
+            <div class="col q-px-xs">
               <span class="text-h5">Projet</span>
               <br />
               <div>
@@ -26,19 +26,69 @@
                     :key="project.id"
                     clickable
                     v-ripple
-                    :class="project.bgcolor"
+                    :class="getProjectClass(project)"
                     :font-color="project.fontcolor"
                     @click="selectedProject = project"
                   >
-                    <q-item-section>{{project.name}}</q-item-section>
-                    <q-item-section side>Side</q-item-section>
+                    <q-item-section>
+                      {{project.name}}
+                    </q-item-section>
+                    <q-item-section side>
+                      <q-badge color="negative">{{project.activities.length}}</q-badge>
+                    </q-item-section>
                   </q-item>
                 </q-list>
               </div>
             </div>
-            <div class="col">
+            <div class="col q-px-xs">
               <span class="text-h5">Activité</span>
               <br />
+              <div>
+                <template v-if="selectedProject !== null">
+                  <q-list bordered separator>
+                    <q-item
+                      v-for="activity in selectedProject.activities"
+                      :key="activity.id"
+                      clickable
+                      v-ripple
+                      :class="getActivityClass(activity)"
+                      @dblclick="selectedActivity = activity"
+                      @contextmenu="contextActivity = activity"
+                    >
+                      <q-item-section avatar>
+                        <q-icon :name="activity.icon" />
+                      </q-item-section>
+                      <q-item-section>{{activity.name}}</q-item-section>
+                      <q-item-section avatar v-if="selectedActivity !== null && selectedActivity.id === activity.id">
+                        <q-circular-progress indeterminate color="warning" />
+                      </q-item-section>
+                      <q-menu touch-position context-menu>
+                        <q-list dense style="min-width: 100px">
+                          <q-item clickable v-close-menu>
+                            <q-item-section>Changer activité courante</q-item-section>
+                          </q-item>
+                          <q-item clickable v-close-menu>
+                            <q-item-section>Changer activité</q-item-section>
+                          </q-item>
+                          <q-item
+                           clickable
+                           v-close-menu
+                           :disable="!(contextActivity !== null && contextActivity.id === selectedActivity.id)"
+                           @click="cancelCurrentSegment"
+                           >
+                            <q-item-section>Annuler activité courante</q-item-section>
+                          </q-item>
+                        </q-list>
+                      </q-menu>
+                    </q-item>
+                  </q-list>
+                </template>
+                <template v-else>
+                  <p>
+                    Veuillez selectionner un projet
+                  </p>
+                </template>
+              </div>
             </div>
           </div>
         </q-card-section>
@@ -69,7 +119,8 @@ export default {
       dateDifference: this.updateTimer(),
       currentDay: date.formatDate(Date.now(), 'dddd DD MMMM YYYY'),
       selectedProject: null,
-      selectedActivity: null
+      selectedActivity: null,
+      contextActivity: null
     }
   },
   timers: {
@@ -96,12 +147,27 @@ export default {
         })
       }
     },
+    getProjectClass: function (project) {
+      if (this.selectedProject !== null && this.selectedProject.id === project.id) {
+        return `${project.bgcolor} ${project.textcolor}`
+      } else {
+        return `black`
+      }
+    },
+    getActivityClass: function (activity) {
+      if (this.selectedActivity !== null && this.selectedActivity.id === activity.id) {
+        return `bg-positive`
+      } else {
+        return ``
+      }
+    },
     ...mapActions('records', {
       startRecord: 'startRecord',
       endRecord: 'endRecord',
       startSegment: 'startSegment',
       endSegment: 'endSegment',
-      editSegment: 'editSegment'
+      editSegment: 'editSegment',
+      cancelSegment: 'cancelSegment'
     })
   },
   computed: {
@@ -118,6 +184,27 @@ export default {
     ...mapState('projects', [
       'projects'
     ])
+  },
+  watch: {
+    selectedActivity: function (newSelectedActivity, oldSelectedActivity) {
+      if (oldSelectedActivity === null) {
+        // Start segment
+        this.startSegment(newSelectedActivity)
+        this.$q.notify({
+          message: 'Activitée démarrée.',
+          color: 'positive'
+        })
+      } else {
+        // End segment
+        this.endSegment()
+        // Start segment
+        this.startSegment(newSelectedActivity)
+        this.$q.notify({
+          message: 'Activitée changée.',
+          color: 'positive'
+        })
+      }
+    }
   }
 }
 </script>
