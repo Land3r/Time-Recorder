@@ -10,6 +10,9 @@
       <q-expansion-item group="settings" icon="perm_identity" key="user" label="Utilisateur" default-opened :header-class="getHeaderClass('user')" @show="setActiveExpansionItem('user')">
         <app-editprofileform />
       </q-expansion-item>
+      <q-expansion-item group="settings" icon="whatshot" key="objective" label="Objectifs" :header-class="getHeaderClass('objective')" @show="setActiveExpansionItem('objective')">
+        <app-editobjectiveform />
+      </q-expansion-item>
       <q-expansion-item group="settings" icon="list" key="activities" label="Activités" :header-class="getHeaderClass('activities')" @show="setActiveExpansionItem('activities')">
         <q-card>
           <h3>
@@ -163,6 +166,8 @@ import CreateActivityForm from '../components/form/activity/CreateActivity'
 import EditActivityForm from '../components/form/activity/EditActivity'
 import EditProfileForm from '../components/form/settings/EditProfile'
 import EditSystemEventsForm from '../components/form/settings/EditSystemEvents'
+import EditObjectiveForm from '../components/form/settings/EditObjective'
+
 const electron = require('electron')
 import { OPEN_FILE, OPEN_FILE_RESPONSE } from '../../src-electron/ipc-events-types'
 
@@ -173,7 +178,8 @@ export default {
     'app-editprofileform': EditProfileForm,
     'app-editsystemeventsform': EditSystemEventsForm,
     'app-createactivityform': CreateActivityForm,
-    'app-editactivityform': EditActivityForm
+    'app-editactivityform': EditActivityForm,
+    'app-editobjectiveform': EditObjectiveForm
   },
   data: function () {
     return {

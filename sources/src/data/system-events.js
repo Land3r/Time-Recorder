@@ -1,30 +1,40 @@
-export default [
+export const SystemEventType = {
+  SLEEP: 'sleep',
+  RESUME: 'resume',
+  SHUTDOWN: 'shutdown',
+  LOCK: 'lock',
+  UNLOCK: 'unlock',
+  AC: 'ac',
+  BATTERY: 'battery'
+}
+
+export const SystemEventTypeOptions = [
   {
-    name: 'sleep',
+    name: SystemEventType.SLEEP,
     icon: 'brightness_3'
   },
   {
-    name: 'resume',
+    name: SystemEventType.RESUME,
     icon: 'brightness_5'
   },
   {
-    name: 'shutdown',
+    name: SystemEventType.SHUTDOWN,
     icon: 'exit_to_app'
   },
   {
-    name: 'lock',
+    name: SystemEventType.LOCK,
     icon: 'lock'
   },
   {
-    name: 'unlock',
+    name: SystemEventType.UNLOCK,
     icon: 'lock_open'
   },
   {
-    name: 'ac',
+    name: SystemEventType.AC,
     icon: 'battery_charging_full'
   },
   {
-    name: 'battery',
+    name: SystemEventType.BATTERY,
     icon: 'battery_std'
   }
 ]

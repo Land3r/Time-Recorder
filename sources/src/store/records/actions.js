@@ -1,5 +1,5 @@
 import {
-  START_RECORD, END_RECORD,
+  START_RECORD, EDIT_RECORD, END_RECORD,
   START_SEGMENT, EDIT_SEGMENT, END_SEGMENT, CANCEL_SEGMENT
 } from './types'
 import {
@@ -17,6 +17,10 @@ export function importState (context, importedState) {
 export function startRecord (context, record) {
   // TODO: Vérification des champs obligatoires.
   context.commit(START_RECORD, record)
+}
+
+export function editRecord (context, record) {
+  context.commit(EDIT_RECORD, record)
 }
 
 export function endRecord (context) {

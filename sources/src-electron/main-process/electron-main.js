@@ -35,6 +35,31 @@ function createWindow () {
     mainWindow.show()
   })
 
+  // Prevent window close if record is running.
+  mainWindow.on('close', (event) => {
+    if (store.state.records.isRecording) {
+      let response = electron.dialog.showMessageBox(mainWindow, {
+        type: 'warning',
+        title: 'Un enregistrement est en cours',
+        message: 'Etes vous sur de vouloir quitter ?',
+        buttons: ['Annuler', 'Quitter', 'Quitter et Sauvegarder']
+      })
+      switch (response) {
+        // Cancel
+        case 0:
+          event.preventDefault()
+          break
+        // Quit
+        case 1:
+          break
+        // Quit and Save
+        case 2:
+          store.dispatch('records/endRecord')
+          break
+      }
+    }
+  })
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })

@@ -1,6 +1,6 @@
 import {
   START_RECORD, END_RECORD,
-  START_SEGMENT, EDIT_SEGMENT, END_SEGMENT, CANCEL_SEGMENT
+  START_SEGMENT, EDIT_SEGMENT, END_SEGMENT, CANCEL_SEGMENT, EDIT_RECORD
 } from './types'
 import {
   RESET_STATE, IMPORT_STATE
@@ -25,6 +25,12 @@ export const mutations = {
       segments: [],
       ...record,
       startedAt: Date.now()
+    }
+  },
+  [EDIT_RECORD] (state, record) {
+    state.currentRecord = {
+      ...state.currentRecord,
+      ...record
     }
   },
   [END_RECORD] (state) {

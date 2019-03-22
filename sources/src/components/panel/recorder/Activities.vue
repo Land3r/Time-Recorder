@@ -132,7 +132,7 @@ export default {
         }).onOk(() => {
           this.startRecord()
         }).onOk(() => {
-          console.log('>>>> second OK catcher')
+          // TODO: Start segment
         }).onCancel(() => {
         })
       }

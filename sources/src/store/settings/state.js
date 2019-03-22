@@ -1,3 +1,5 @@
+import { ObjectiveType } from '../../data/objectives'
+
 export default () => ({
   username: '',
   lang: 'fr',
@@ -11,5 +13,9 @@ export default () => ({
     watch_ac: false,
     watch_battery: false
   },
-  defaultActivities: []
+  defaultActivities: [],
+  objective: {
+    type: ObjectiveType.WEEKLY,
+    value: 37.5
+  }
 })
