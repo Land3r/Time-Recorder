@@ -1,50 +1,86 @@
 <template>
-  <q-page class="q-px-md q-py-lg">
-    <div>
-      <h1>
-        Enregisteur
-        <div :class="getRecordStatusClass"></div>
-      </h1>
-      <q-card class="">
-        <q-card-section>
-          <div :class="getRecordStatusClass" class="float-left q-mr-sm"></div>
-          <span class="text-h5">{{dateDifference}}</span>
-          <span> | </span>
-          <span>{{isInSegment ? getCurrentSegmentActivityName : 'Activitée non precisée'}}</span>
-          <span class="float-right">{{currentDay}}</span>
-        </q-card-section>
-        <q-separator />
-          <q-tabs
-            v-model="selectedTab"
-            dense
-            class="text-grey"
-            active-color="primary"
-            indicator-color="primary"
-            align="justify"
-            narrow-indicator
+<div>
+  <div class="row">
+    <div class="col q-px-xs">
+      <span class="text-h5">Projet</span>
+      <br />
+      <div>
+        <q-list bordered separator>
+          <q-item
+            v-for="project in projects"
+            :key="project.id"
+            clickable
+            v-ripple
+            :class="getProjectClass(project)"
+            :font-color="project.fontcolor"
+            @click="selectedProject = project"
           >
-            <q-tab name="dashboard" label="Dashboard" />
-            <q-tab name="record" label="Enregistrement" />
-            <q-tab name="activities" label="Activité" />
-          </q-tabs>
-          <q-separator />
-
-          <q-tab-panels v-model="selectedTab" animated>
-            <q-tab-panel name="dashboard">
-              <app-dashboardpanel />
-            </q-tab-panel>
-
-            <q-tab-panel name="record">
-              <app-recordpanel />
-            </q-tab-panel>
-
-            <q-tab-panel name="activities">
-              <app-activitiespanel />
-            </q-tab-panel>
-          </q-tab-panels>
-      </q-card>
+            <q-item-section>
+              {{project.name}}
+            </q-item-section>
+            <q-item-section side>
+              <q-badge color="negative">{{project.activities.length}}</q-badge>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </div>
     </div>
-  </q-page>
+    <div class="col q-px-xs">
+      <span class="text-h5">Activité</span>
+      <br />
+      <div>
+        <template v-if="selectedProject !== null">
+          <q-list bordered separator>
+            <q-item
+              v-for="activity in selectedProject.activities"
+              :key="activity.id"
+              clickable
+              v-ripple
+              :class="getActivityClass(activity)"
+              @dblclick="onProjectDblClick(activity)"
+              @contextmenu="contextActivity = activity"
+            >
+              <q-item-section avatar>
+                <q-icon :name="activity.icon" />
+              </q-item-section>
+              <q-item-section>{{activity.name}}</q-item-section>
+              <q-item-section avatar v-if="selectedActivity !== null && selectedActivity.id === activity.id">
+                <q-circular-progress indeterminate color="warning" />
+              </q-item-section>
+              <q-menu touch-position context-menu>
+                <q-list dense style="min-width: 100px">
+                  <q-item clickable v-close-menu>
+                    <q-item-section>Modifier activité courante</q-item-section>
+                  </q-item>
+                  <q-item clickable v-close-menu>
+                    <q-item-section>Changer d'activité</q-item-section>
+                  </q-item>
+                  <q-item
+                    clickable
+                    v-close-menu
+                    :disable="!(contextActivity !== null && contextActivity.id === selectedActivity.id)"
+                    @click="cancelCurrentSegment"
+                    >
+                    <q-item-section>Annuler activité courante</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-item>
+          </q-list>
+        </template>
+        <template v-else>
+          <p>
+            Veuillez selectionner un projet
+          </p>
+        </template>
+      </div>
+    </div>
+  </div>
+  <q-card-actions>
+    <q-btn flat @click="toggleRecording()" :label="isRecording ? 'Arrêter' : 'Démarrer'"></q-btn>
+    <q-btn flat>Pause</q-btn>
+  </q-card-actions>
+</div>
 </template>
 
 <style>
@@ -55,20 +91,12 @@
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { date, uid } from 'quasar'
 
-import ActivitiesPanel from '../components/panel/recorder/Activities'
-import RecordPanel from '../components/panel/recorder/Record'
-import DashboardPanel from '../components/panel/recorder/Dashboard'
-
 export default {
-  name: 'PageRecorder',
+  name: 'ActivitiesPanel',
   components: {
-    'app-activitiespanel': ActivitiesPanel,
-    'app-recordpanel': RecordPanel,
-    'app-dashboardpanel': DashboardPanel
   },
   data: function () {
     return {
-      selectedTab: 'dashboard',
       dateDifference: this.updateTimer(),
       currentDay: date.formatDate(Date.now(), 'dddd DD MMMM YYYY'),
       selectedProject: null,

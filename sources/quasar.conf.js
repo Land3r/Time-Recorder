@@ -35,6 +35,10 @@ module.exports = function (ctx) {
         'QPage',
         'QToolbar',
         'QToolbarTitle',
+        'QTabs',
+        'QTab',
+        'QTabPanels',
+        'QTabPanel',
         'QBtn',
         'QIcon',
         'QList',
@@ -53,6 +57,7 @@ module.exports = function (ctx) {
         'QInput',
         'QToggle',
         'QSelect',
+        'QEditor',
         'QExpansionItem',
         'QImg',
         'QTimeline',
@@ -71,6 +76,7 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
+        'Dialog',
         'Notify'
       ]
 
