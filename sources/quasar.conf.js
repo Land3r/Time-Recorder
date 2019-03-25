@@ -66,7 +66,10 @@ module.exports = function (ctx) {
         'QScrollArea',
         'QBadge',
         'QCircularProgress',
-        'QSlider'
+        'QSlider',
+        'QStepper',
+        'QStep',
+        'QStepperNavigation'
       ],
 
       directives: [
@@ -100,6 +103,13 @@ module.exports = function (ctx) {
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /node_modules/
+        })
+        cfg.module.rules.push({
+          resourceQuery: /blockType=i18n/,
+          use: [
+            {loader: '@kazupon/vue-i18n-loader'},
+            {loader: 'yaml-loader'}
+          ]
         })
       }
     },

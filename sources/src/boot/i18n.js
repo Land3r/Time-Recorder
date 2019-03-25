@@ -1,6 +1,8 @@
 import VueI18n from 'vue-i18n'
 import messages from 'src/i18n'
 
+let i18n
+
 export default async ({ app, Vue }) => {
   Vue.use(VueI18n)
 
@@ -10,4 +12,7 @@ export default async ({ app, Vue }) => {
     fallbackLocale: 'en-us',
     messages
   })
+  i18n = app.i18n
 }
+
+export { i18n }
