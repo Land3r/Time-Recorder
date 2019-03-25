@@ -65,7 +65,8 @@ module.exports = function (ctx) {
         'QBtnToggle',
         'QScrollArea',
         'QBadge',
-        'QCircularProgress'
+        'QCircularProgress',
+        'QSlider'
       ],
 
       directives: [

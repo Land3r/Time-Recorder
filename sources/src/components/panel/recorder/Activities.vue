@@ -144,7 +144,7 @@ export default {
       } else {
         this.startRecord({
           id: uid(),
-          comment: 'Random day'
+          comment: ''
         })
       }
     },

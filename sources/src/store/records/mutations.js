@@ -23,6 +23,7 @@ export const mutations = {
     state.isRecording = true
     state.currentRecord = {
       segments: [],
+      comment: '',
       ...record,
       startedAt: Date.now()
     }
