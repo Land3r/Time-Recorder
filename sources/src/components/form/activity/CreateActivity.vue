@@ -1,19 +1,19 @@
 <template>
   <q-card style="min-width: 30vw; max-width: 90vw;">
     <q-card-section class="bg-primary text-white">
-      <div class="text-h6">Ajouter une activité</div>
+      <div class="text-h6">{{$t('form.activity.create.title')}}</div>
     </q-card-section>
 
     <q-card-section>
       <q-input
-        label="Nom"
+        :label="$t('form.activity.create.namelabel')"
         v-model="form.name"
         @blur="$v.form.name.$touch"
         :error="$v.form.name.$error"
       />
 
       <q-input
-        label="Label"
+        :label="$t('form.activity.create.labellabel')"
         v-model="form.label"
         @blur="$v.form.label.$touch"
         :error="$v.form.label.$error"
@@ -22,7 +22,7 @@
       <q-select
         use-input
         input-debounce="0"
-        label="Icone"
+        :label="$t('form.activity.create.iconlabel')"
         v-model="form.icon"
         @blur="$v.form.icon.$touch"
         @filter="filterIcons"
@@ -47,9 +47,7 @@
         </template>
         <template v-slot:no-option>
           <q-item>
-            <q-item-section class="text-grey">
-              Pas de resultats
-            </q-item-section>
+            <q-item-section class="text-grey">{{$t('search.noresults')}}</q-item-section>
           </q-item>
         </template>
       </q-select>
@@ -57,8 +55,8 @@
     </q-card-section>
 
     <q-card-actions class="bg-white" align="right">
-      <q-btn flat label="Annuler" class="float-left" v-close-dialog />
-      <q-btn flat label="Créer" class="text-primary float-right" @click="submit()" :v-close-dialog="isValid"/>
+      <q-btn flat :label="$t('buttons.cancel')" class="float-left" v-close-dialog />
+      <q-btn flat :label="$t('buttons.save')" class="text-primary float-right" @click="submit()" :v-close-dialog="isValid"/>
     </q-card-actions>
   </q-card>
 </template>

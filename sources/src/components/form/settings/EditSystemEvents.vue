@@ -1,6 +1,6 @@
 <template>
   <q-card>
-    <h3>Evenements systemes</h3>
+    <h3>{{$t('settingspage.recorder.systemevents.title')}}</h3>
     <br />
     <q-list bordered class="q-pa-md">
       <q-item multiline tag="label" v-ripple>
@@ -8,8 +8,8 @@
           <q-icon color="primary" :name="getIcon('sleep')" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Sleep</q-item-label>
-          <q-item-label caption>Surveiller la mise en veille</q-item-label>
+          <q-item-label>{{$t('settingspage.recorder.systemevents.sleep.title')}}</q-item-label>
+          <q-item-label caption>{{$t('settingspage.recorder.systemevents.sleep.details')}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle v-model="watchEvents.watch_sleep" />
@@ -20,8 +20,8 @@
           <q-icon color="primary" :name="getIcon('resume')" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Resume</q-item-label>
-          <q-item-label caption>Surveiller la reprise du systeme</q-item-label>
+          <q-item-label>{{$t('settingspage.recorder.systemevents.resume.title')}}</q-item-label>
+          <q-item-label caption>{{$t('settingspage.recorder.systemevents.resume.details')}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle v-model="watchEvents.watch_resume" />
@@ -32,8 +32,8 @@
           <q-icon color="primary" :name="getIcon('shutdown')" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Shutdown</q-item-label>
-          <q-item-label caption>Surveiller l'arret</q-item-label>
+          <q-item-label>{{$t('settingspage.recorder.systemevents.shutdown.title')}}</q-item-label>
+          <q-item-label caption>{{$t('settingspage.recorder.systemevents.shutdown.details')}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle v-model="watchEvents.watch_shutdown" />
@@ -44,8 +44,8 @@
           <q-icon color="primary" :name="getIcon('lock')" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Lock</q-item-label>
-          <q-item-label caption>Surveiller le verouillage de session</q-item-label>
+          <q-item-label>{{$t('settingspage.recorder.systemevents.lock.title')}}</q-item-label>
+          <q-item-label caption>{{$t('settingspage.recorder.systemevents.lock.details')}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle v-model="watchEvents.watch_lock" />
@@ -56,8 +56,8 @@
           <q-icon color="primary" :name="getIcon('unlock')" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Unlock</q-item-label>
-          <q-item-label caption>Surveiller le déverouillage de session</q-item-label>
+          <q-item-label>{{$t('settingspage.recorder.systemevents.unlock.title')}}</q-item-label>
+          <q-item-label caption>{{$t('settingspage.recorder.systemevents.unlock.details')}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle v-model="watchEvents.watch_unlock" />
@@ -68,8 +68,8 @@
           <q-icon color="primary" :name="getIcon('ac')" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>AC</q-item-label>
-          <q-item-label caption>Surveiller le passage sur secteur</q-item-label>
+          <q-item-label>{{$t('settingspage.recorder.systemevents.ac.title')}}</q-item-label>
+          <q-item-label caption>{{$t('settingspage.recorder.systemevents.ac.details')}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle v-model="watchEvents.watch_ac" />
@@ -80,8 +80,8 @@
           <q-icon color="primary" :name="getIcon('battery')" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Battery</q-item-label>
-          <q-item-label caption>Surveiller le passage sur batterie</q-item-label>
+          <q-item-label>{{$t('settingspage.recorder.systemevents.battery.title')}}</q-item-label>
+          <q-item-label caption>{{$t('settingspage.recorder.systemevents.battery.details')}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle v-model="watchEvents.watch_battery" />
@@ -91,7 +91,7 @@
     <br />
     <br />
     <center>
-      <q-btn @click="saveEvents()" color="positive" :disable="JSON.stringify(watchEvents) === JSON.stringify(events)" >Appliquer</q-btn>
+      <q-btn @click="saveEvents()" color="positive" :disable="JSON.stringify(watchEvents) === JSON.stringify(events)">{{$t('buttons.apply')}}</q-btn>
     </center>
     <br />
   </q-card>
@@ -120,7 +120,7 @@ export default {
       this.editEvents(this.watchEvents)
 
       this.$q.notify({
-        message: 'Evenements mis à jour',
+        message: this.$t('settingspage.recorder.success'),
         color: 'positive'
       })
     },

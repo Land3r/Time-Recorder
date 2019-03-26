@@ -1,12 +1,12 @@
 <template>
   <q-card>
-    <h3>Mon profil</h3>
+    <h3>{{$t('settingspage.user.title')}}</h3>
     <div class="q-pa-md">
       <div class="row">
         <div class="col q-pr-sm">
           <q-input
             v-model="form.username"
-            label="Nom d'utilisateur"
+            :label="$t('settingspage.user.usernamelabel')"
             @blur="$v.form.username.$touch"
             :error="$v.form.username.$error"
           />
@@ -14,8 +14,8 @@
         <div class="col q-pl-sm">
           <q-select
             v-model="form.lang"
-            :options="langs"
-            label="Langue"
+            :options="langOptions"
+            :label="$t('settingspage.user.langlabel')"
             @blur="$v.form.lang.$touch"
             :error="$v.form.lang.$error"
           >
@@ -45,10 +45,10 @@
         <div class="col q-pr-sm">
           <q-input
             v-model="form.dateFormat"
-            label="Format des dates"
+            :label="$t('settingspage.user.dateformat.label')"
             @blur="$v.form.dateFormat.$touch"
             :error="$v.form.dateFormat.$error"
-            hint="Vous pouvez utiliser n'importe quel format de quasar framework (https://v1.quasar-framework.org/quasar-utils/date-utils#Format-for-display)"
+            :hint="$t('settingspage.user.dateformat.details')"
           />
         </div>
         <div class="col q-pl-sm">
@@ -57,7 +57,7 @@
     </div>
     <br />
     <center>
-      <q-btn color="positive" @click="submit" :disable="JSON.stringify(form) === JSON.stringify({username: this.username, lang: this.lang, dateFormat: this.dateFormat})">Enregistrer</q-btn>
+      <q-btn color="positive" @click="submit" :disable="JSON.stringify(form) === JSON.stringify({username: this.username, lang: this.lang, dateFormat: this.dateFormat})">{{$t('buttons.save')}}</q-btn>
     </center>
     <br />
   </q-card>
@@ -69,7 +69,7 @@
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapActions, mapState } from 'vuex'
-import langs from '../../../data/langs'
+import { LangOptions } from '../../../data/langs'
 
 export default {
   name: 'EditProfileForm',
@@ -77,10 +77,10 @@ export default {
     return {
       form: {
         username: '',
-        lang: '',
+        lang: this.$i18n.locale,
         dateFormat: ''
       },
-      langs: langs
+      langOptions: LangOptions
     }
   },
   validations: {
@@ -105,7 +105,7 @@ export default {
         this.setLang(lang)
         this.setDateFormat(dateFormat)
         this.$q.notify({
-          message: 'Profil mis à jour',
+          message: this.$t('settingspage.user.success'),
           color: 'positive'
         })
       }

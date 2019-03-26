@@ -1,13 +1,13 @@
 <template>
   <q-card>
-    <h3>Mes objectifs</h3>
+    <h3>{{$t('settingspage.objective.title')}}</h3>
     <div class="q-pa-md">
       <div class="row">
         <div class="col q-pr-sm">
           <q-select
             v-model="form.type"
             :options="types"
-            label="Type d'objectif"
+            :label="$t('settingspage.objective.objectivetypelabel')"
             @blur="$v.form.type.$touch"
             :error="$v.form.type.$error"
           >
@@ -17,7 +17,7 @@
           <q-input
             options-cover
             v-model="form.value"
-            label="Nom d'utilisateur"
+            :label="$t('settingspage.objective.objectivevaluelabel')"
             @blur="$v.form.value.$touch"
             :error="$v.form.value.$error"
             type="number"
@@ -27,7 +27,7 @@
     </div>
     <br />
     <center>
-      <q-btn color="positive" @click="submit" :disable="JSON.stringify(form) === JSON.stringify(this.objective)">Enregistrer</q-btn>
+      <q-btn color="positive" @click="submit" :disable="JSON.stringify(form) === JSON.stringify(this.objective)">{{$t('buttons.save')}}</q-btn>
     </center>
     <br />
   </q-card>
@@ -69,7 +69,7 @@ export default {
 
         this.setObjective(objective)
         this.$q.notify({
-          message: 'Objectifs mis à jour',
+          message: this.$t('settingspage.objective.success'),
           color: 'positive'
         })
       }
