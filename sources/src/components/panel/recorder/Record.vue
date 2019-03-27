@@ -122,9 +122,7 @@ export default {
     ])
   },
   created: function () {
-    if (this.currentRecord !== null && this.currentRecord.comment !== null) {
-      this.comment = this.currentRecord.comment
-    }
+    this.comment = this.currentRecord?.comment ?? ''
   }
 }
 </script>

@@ -7,7 +7,7 @@
         :min="0"
         :max="100"
         label
-        :label-value="value + '%'"
+        :label-value="`${percentage}%`"
         label-always
         readonly
         dense
@@ -52,8 +52,8 @@ export default {
     ])
   },
   created: function () {
-    this.objectiveType = this.objective.type
-    this.objectiveValue = this.objective.value
+    this.objectiveType = this.objective?.type
+    this.objectiveValue = this.objective?.value
   }
 }
 </script>
