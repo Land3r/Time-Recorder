@@ -79,6 +79,16 @@
   </q-card>
 </template>
 
+<style>
+.visible-on-hover {
+  visibility: hidden
+}
+
+div.q-item:hover .visible-on-hover {
+  visibility: initial
+}
+</style>
+
 <script>
 import draggable from 'vuedraggable'
 import { mapActions } from 'vuex'

@@ -7,6 +7,7 @@ export default () => ({
       id: 'd20ff5a9-7907-4f68-b797-aa7fdbc82597',
       startedAt: 1552559240859,
       endedAt: 1554559240859,
+      comment: '',
       segments: [
         {
           id: 'aa7ec278-18e5-4a24-a479-aac98468279a',

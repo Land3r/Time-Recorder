@@ -10,7 +10,7 @@
           <div :class="getRecordStatusClass" class="float-left q-mr-sm"></div>
           <span class="text-h5">{{dateDifference}}</span>
           <span> | </span>
-          <span>{{isInSegment ? getCurrentSegmentActivityName : 'Activitée non precisée'}}</span>
+          <span>{{currentSegmentName}}</span>
           <span class="float-right">{{currentDay}}</span>
         </q-card-section>
         <q-separator />
@@ -42,6 +42,16 @@
               <app-activitiespanel />
             </q-tab-panel>
           </q-tab-panels>
+          <q-card-section>
+            <q-card-actions>
+              <q-btn
+                color="primary"
+                @click="toggleRecording()"
+                :label="isRecording ? 'Arrêter' : 'Démarrer'"
+                :icon="isRecording ? 'stop' : 'play_arrow'"
+              />
+            </q-card-actions>
+        </q-card-section>
       </q-card>
     </div>
   </q-page>
@@ -53,8 +63,9 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
-import { date, uid } from 'quasar'
+import { date } from 'quasar'
 
+import { RecordFactory } from '../domain/record'
 import ActivitiesPanel from '../components/panel/recorder/Activities'
 import RecordPanel from '../components/panel/recorder/Record'
 import DashboardPanel from '../components/panel/recorder/Dashboard'
@@ -89,35 +100,13 @@ export default {
         this.dateDifference = `${hours}:${minutes}:${seconds}`
       }
     },
-    onProjectDblClick: function (activity) {
-      if (!this.isRecording) {
-        this.$q.dialog({
-          title: 'Démarrer un enregistrement ?',
-          message: `Aucun enregistrement n'est pour l'instant demarré. Voulez vous démarrer un enregistrement sur l'activité ${this.selectedProject.name}: ${activity.name} ?`,
-          ok: {
-          },
-          cancel: {
-            name: 'Annuler',
-            color: 'negative'
-          },
-          persistent: true
-        }).onOk(() => {
-          this.startRecord()
-        }).onOk(() => {
-          console.log('>>>> second OK catcher')
-        }).onCancel(() => {
-        })
-      }
-    },
     toggleRecording: function () {
       if (this.isRecording) {
         this.dateDifference = '00:00:00'
         this.endRecord()
       } else {
-        this.startRecord({
-          id: uid(),
-          comment: ''
-        })
+        const record = RecordFactory.Create()
+        this.startRecord(record)
       }
     },
     getProjectClass: function (project) {
@@ -144,10 +133,16 @@ export default {
     })
   },
   computed: {
+    currentSegmentName: function () {
+      console.dir({ record: this.record, segment: this.segment })
+      if (this.isRecording && this.segment !== null) {
+        return `${this.segment.project.name}: ${this.segment.activity.name}`
+      } else {
+        return this.$t('recorderpage.nosegment')
+      }
+    },
     ...mapGetters('records', [
-      'getRecordStatusClass',
-      'isInSegment',
-      'getCurrentSegmentActivityName'
+      'getRecordStatusClass'
     ]),
     ...mapState('records', {
       isRecording: 'isRecording',

@@ -76,10 +76,6 @@
       </div>
     </div>
   </div>
-  <q-card-actions>
-    <q-btn flat @click="toggleRecording()" :label="isRecording ? 'Arrêter' : 'Démarrer'"></q-btn>
-    <q-btn flat>Pause</q-btn>
-  </q-card-actions>
 </div>
 </template>
 
@@ -89,7 +85,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
-import { date, uid } from 'quasar'
+import { date } from 'quasar'
 
 export default {
   name: 'ActivitiesPanel',
@@ -134,17 +130,6 @@ export default {
         }).onOk(() => {
           // TODO: Start segment
         }).onCancel(() => {
-        })
-      }
-    },
-    toggleRecording: function () {
-      if (this.isRecording) {
-        this.dateDifference = '00:00:00'
-        this.endRecord()
-      } else {
-        this.startRecord({
-          id: uid(),
-          comment: ''
         })
       }
     },

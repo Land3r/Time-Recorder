@@ -6,14 +6,18 @@ export default {
     edit: 'Edit',
     cancel: 'Cancel',
     confirm: 'Confirm',
-    delete: 'Delete'
+    delete: 'Delete',
+    ignore: 'Ignore',
+    back: 'Back',
+    next: 'Next'
   },
   langs: {
     fr: 'French',
     en: 'English'
   },
-  search: {
-    noresults: 'No results'
+  common: {
+    noresults: 'No results',
+    optional: 'Optional'
   },
   form: {
     activity: {
@@ -33,19 +37,29 @@ export default {
     }
   },
   homepage: {
+    errorisrecording: 'A record is already in progress',
     title: 'Home',
     step1: {
       title: 'Start a record',
-      details: 'You should start a record before doing anything else.'
+      details: 'You should start a record before doing anything else.',
+      buttonlabel: 'Start record',
+      commentlabel: 'Comment'
     },
     step2: {
       title: 'Select a project',
-      details: ''
+      details: 'You can already select a project / activity now, or choose to do it later',
+      projectlabel: 'Project'
     },
     step3: {
       title: 'Select an activity',
-      details: ''
+      details: '',
+      activitylabel: 'Activity',
+      successactivity: 'Record started on {project}: {activity}.',
+      successnoactivity: 'Record started.'
     }
+  },
+  recorderpage: {
+    nosegment: 'Activity not precised yet'
   },
   settingspage: {
     title: 'Settings',

@@ -26,16 +26,6 @@
   </q-page>
 </template>
 
-<style>
-.visible-on-hover {
-  visibility: hidden
-}
-
-div.q-item:hover .visible-on-hover {
-  visibility: initial
-}
-</style>
-
 <script>
 import DefaultActivitiesForm from '../components/form/settings/DefaultActivities'
 import EditProfileForm from '../components/form/settings/EditProfile'

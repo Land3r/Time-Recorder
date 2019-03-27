@@ -45,7 +45,7 @@ export const mutations = {
   },
   [START_SEGMENT] (state, segment) {
     let startedAt = Date.now()
-    state.currenSegment = {
+    state.currentSegment = {
       ...segment,
       startedAt: startedAt
     }

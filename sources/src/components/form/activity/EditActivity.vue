@@ -47,7 +47,7 @@
         </template>
         <template v-slot:no-option>
           <q-item>
-            <q-item-section class="text-grey">{{$t('search.noresults')}}</q-item-section>
+            <q-item-section class="text-grey">{{$t('common.noresults')}}</q-item-section>
           </q-item>
         </template>
       </q-select>

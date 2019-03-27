@@ -6,25 +6,43 @@ export default {
     edit: 'Modifier',
     cancel: 'Annuler',
     confirm: 'Confirmer',
-    delete: 'Supprimer'
+    delete: 'Supprimer',
+    ignore: 'Ignorer',
+    back: 'Precedent',
+    next: 'Suivant'
   },
   langs: {
     fr: 'Français',
     en: 'Anglais'
   },
+  common: {
+    noresults: 'Pas de résultats',
+    optional: 'Optionnel'
+  },
   homepage: {
+    errorisrecording: 'Un enregistrement est déjà en cours',
+    title: 'Accueil',
     step1: {
       title: 'Démarrer un enregistrement',
-      details: 'Avant de démarrer, vous devez démarrer un enregistrement'
+      details: 'Avant de démarrer, vous devez démarrer un enregistrement',
+      buttonlabel: 'Démarrer l\'enregistrement',
+      commentlabel: 'Commentaire'
     },
     step2: {
       title: 'Sélectionner un projet',
-      details: ''
+      details: 'Vous pouvez choisir un projet / activité de suite, ou le définir plus tard',
+      projectlabel: 'Projet'
     },
     step3: {
       title: 'Sélectionner une activitée',
-      details: ''
+      details: '',
+      activitylabel: 'Activité',
+      successactivity: 'Enregistreur démarré sur {project}: {activity}.',
+      successnoactivity: 'Enregistreur démarré.'
     }
+  },
+  recorderpage: {
+    nosegment: 'Activité non précisé'
   },
   settingspage: {
     title: 'Paramètres',

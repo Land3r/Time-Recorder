@@ -24,6 +24,9 @@ export function editRecord (context, record) {
 }
 
 export function endRecord (context) {
+  if (context.state.currentSegment !== null) {
+    endSegment()
+  }
   context.commit(END_RECORD)
 }
 
