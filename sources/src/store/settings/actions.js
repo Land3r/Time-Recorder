@@ -22,7 +22,8 @@ export function setUsername (context, username) {
   context.commit(SET_USERNAME, username)
 }
 
-export function setLang (context, lang) {
+export async function setLang (context, lang) {
+  // Note that quasar lang should be changed before
   context.commit(SET_LANG, lang)
 }
 

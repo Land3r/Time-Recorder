@@ -50,15 +50,6 @@ const spaStoreConfig = {
 
 const storeConfig = isElectron() ? merge(baseStoreConfig, electronStoreConfig) : merge(baseStoreConfig, spaStoreConfig)
 
-// Copy of the initial state.
-// Used to reset the store without using the mutated values.
-// const initialState = {
-//   application: application.state,
-//   settings: settings.state,
-//   records: records.state,
-//   projects: projects.state
-// }
-
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store(storeConfig)
   return Store

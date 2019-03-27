@@ -1,7 +1,7 @@
 import { i18n } from '../boot/i18n'
 
 export const Lang = {
-  fr: 'fr-fr',
+  fr: 'fr',
   en: 'en-us'
 }
 

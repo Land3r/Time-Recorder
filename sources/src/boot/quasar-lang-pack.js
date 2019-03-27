@@ -1,9 +1,10 @@
 import { Quasar } from 'quasar'
+import getStore from '../store'
+
+let store = getStore()
+const langIso = store.state.settings.lang
 
 export default async () => {
-  // TODO: ... some logic to determine it (use Cookies Plugin?)
-  const langIso = 'fr'
-
   try {
     await import(`quasar/lang/${langIso}`)
       .then(lang => {

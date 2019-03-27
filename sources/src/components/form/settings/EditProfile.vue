@@ -22,7 +22,7 @@
             <template v-slot:prepend>
               <img
                 height="60%"
-                :src="getFlagIcon(form.lang)"
+                :src="getFlagIcon(form.lang.icon)"
               />
             </template>
             <template v-slot:option="scope">
@@ -31,10 +31,10 @@
                 v-on="scope.itemEvents"
               >
                 <q-item-section avatar>
-                  <q-img :src="getFlagIcon(scope.opt)" />
+                  <q-img :src="getFlagIcon(scope.opt.icon)" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item-label v-html="scope.opt" />
+                  <q-item-label v-html="scope.opt.label" />
                 </q-item-section>
               </q-item>
             </template>
@@ -70,6 +70,7 @@
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapActions, mapState } from 'vuex'
 import { LangOptions } from '../../../data/langs'
+import { getLangOption } from '../../../helpers/langs'
 
 export default {
   name: 'EditProfileForm',
@@ -77,7 +78,7 @@ export default {
     return {
       form: {
         username: '',
-        lang: this.$i18n.locale,
+        lang: '',
         dateFormat: ''
       },
       langOptions: LangOptions
@@ -94,15 +95,30 @@ export default {
     getFlagIcon: function (flag) {
       return `../../../../assets/icons/flags/${flag}.png`
     },
+    changeLanguage: async function (lang) {
+      try {
+        await import(`quasar/lang/${lang}`)
+          .then(isolang => {
+            // Change quasar lang once ressources are loaded.
+            this.$q.lang.set(isolang.default)
+            // Change vue i18n language.
+            this.$i18n.locale = lang
+            // Change vuex language value.
+            this.setLang(lang)
+          })
+      } catch (err) {
+        console.error(`Lang ${lang} was not found`)
+      }
+    },
     submit () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         const username = this.form.username
-        const lang = this.form.lang
+        const lang = this.form.lang.value
         const dateFormat = this.form.dateFormat
 
         this.setUsername(username)
-        this.setLang(lang)
+        this.changeLanguage(lang)
         this.setDateFormat(dateFormat)
         this.$q.notify({
           message: this.$t('settingspage.user.success'),
@@ -135,7 +151,7 @@ export default {
   },
   created: function () {
     this.form.username = this.username
-    this.form.lang = this.lang
+    this.form.lang = getLangOption(this.lang)
     this.form.dateFormat = this.dateFormat
   }
 }

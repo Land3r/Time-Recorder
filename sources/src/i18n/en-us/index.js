@@ -1,6 +1,3 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
   buttons: {
     save: 'Save',
@@ -53,6 +50,7 @@ export default {
   settingspage: {
     title: 'Settings',
     user: {
+      expansiontitle: 'User',
       title: 'User',
       usernamelabel: 'Username',
       langlabel: 'Language',
@@ -63,12 +61,14 @@ export default {
       success: 'User profile updated.'
     },
     objective: {
+      expansiontitle: 'Objectives',
       title: 'Objective',
       objectivetypelabel: 'Objective type',
       objectivevaluelabel: 'Value (in hours)',
       success: 'Objective updated.'
     },
     defaultactivities: {
+      expansiontitle: 'Activities',
       title: 'Default activities',
       noactivities: {
         label: 'No activities yet.',
@@ -76,6 +76,7 @@ export default {
       }
     },
     recorder: {
+      expansiontitle: 'Recorder',
       title: 'Recorder',
       systemevents: {
         title: 'System events watchers',
@@ -111,6 +112,7 @@ export default {
       success: 'Event watchers updated.'
     },
     importexport: {
+      expansiontitle: 'Import / Export',
       import: {
         title: 'Import',
         buttonlabel: 'Import',
@@ -123,6 +125,7 @@ export default {
       }
     },
     reset: {
+      expansiontitle: 'Reset',
       title: 'Reset',
       buttonlabel: 'Reset',
       popup: {
