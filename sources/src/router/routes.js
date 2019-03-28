@@ -32,7 +32,7 @@ const routes = [
         meta: {
           breadcrumbs: [
             { id: 0, label: 'homepage', icon: 'home', to: '/index' },
-            { id: 1, label: 'records', icon: 'timer' }
+            { id: 1, label: 'recordspage', icon: 'timer' }
           ]
         }
       },
@@ -43,7 +43,7 @@ const routes = [
         meta: {
           breadcrumbs: [
             { id: 0, label: 'homepage', icon: 'home', to: '/index' },
-            { id: 1, label: 'projects', icon: 'business' }
+            { id: 1, label: 'projectspage', icon: 'business' }
           ]
         }
       },
@@ -54,7 +54,7 @@ const routes = [
         meta: {
           breadcrumbs: [
             { id: 0, label: 'homepage', icon: 'home', to: '/index' },
-            { id: 1, label: 'activities', icon: 'business' }
+            { id: 1, label: 'activitiespage', icon: 'business' }
           ]
         }
       },

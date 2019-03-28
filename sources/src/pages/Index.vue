@@ -2,7 +2,7 @@
   <q-page class="q-px-md q-py-lg">
     <div>
       <h1>
-        Accueil
+        {{$t('homepage.title')}}
       </h1>
     </div>
     <i18n>
@@ -28,7 +28,7 @@
           :toolbar="[
             ['left', 'center', 'right', 'justify'],
             ['bold', 'italic', 'strike', 'underline'],
-            ['token', 'hr', 'link', 'custom_btn'],
+            ['hr', 'link'],
             [
               {
                 label: $q.lang.editor.formatting,
@@ -110,7 +110,6 @@
           </q-select>
           <br />
         <q-stepper-navigation>
-          <q-btn color="primary" label="Finish" />
           <q-btn flat @click="step3BackBtn()" color="primary" label="Back" class="q-ml-sm" />
         </q-stepper-navigation>
       </q-step>

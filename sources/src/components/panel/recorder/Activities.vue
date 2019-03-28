@@ -52,13 +52,18 @@
                   <q-item clickable v-close-menu @click="changeSegmentMenuBtn()">
                     <q-item-section>Changer d'activité</q-item-section>
                   </q-item>
-                  <q-item clickable v-close-menu @click="editCurrentSegmentMenuBtn()">
+                  <q-item
+                    clickable
+                    v-close-menu
+                    :disable="(contextActivity !== null && segment !== null && contextActivity.id === segment.activity.id)"
+                    @click="editCurrentSegmentMenuBtn()"
+                    >
                     <q-item-section>Modifier activité courante</q-item-section>
                   </q-item>
                   <q-item
                     clickable
                     v-close-menu
-                    :disable="!(contextActivity !== null && segment !== null && contextActivity.id === segment.id)"
+                    :disable="!(contextActivity !== null && segment !== null && contextActivity.id === segment.activity.id)"
                     @click="cancelCurrentSegmentMenuBtn()"
                     >
                     <q-item-section>Annuler activité courante</q-item-section>
@@ -169,24 +174,23 @@ export default {
             startedAt: this.record.startedAt,
             project: { name: this.contextProject.name, id: this.contextProject.id },
             color: this.contextProject.color,
-            icon: this.contextActivity.icon,
-            activity: { name: this.contextActivity.name, id: this.contextActivity.id }
+            icon: activity.icon,
+            activity: { name: activity.name, id: activity.id }
           })
           this.startSegment(segment)
         }).onCancel(() => {})
       } else {
-        // If recording and a current segment -> Change segment.
+        // If recording and a current segment -> End current segment.
         if (this.segment !== null) {
-
-        } else {
-          // If recording and not segment yet -> Create segment
+          this.endSegment()
         }
+        // Finally create new segment.
         const segment = SegmentFactory.Create({
           startedAt: this.record.startedAt,
           project: { name: this.contextProject.name, id: this.contextProject.id },
           color: this.contextProject.color,
-          icon: this.contextActivity.icon,
-          activity: { name: this.contextActivity.name, id: this.contextActivity.id }
+          icon: activity.icon,
+          activity: { name: activity.name, id: activity.id }
         })
         this.startSegment(segment)
       }
@@ -241,25 +245,25 @@ export default {
     ])
   },
   watch: {
-    selectedActivity: function (newSelectedActivity, oldSelectedActivity) {
-      if (oldSelectedActivity === null) {
-        // Start segment
-        this.startSegment(newSelectedActivity)
-        this.$q.notify({
-          message: 'Activitée démarrée.',
-          color: 'positive'
-        })
-      } else {
-        // End segment
-        this.endSegment()
-        // Start segment
-        this.startSegment(newSelectedActivity)
-        this.$q.notify({
-          message: 'Activitée changée.',
-          color: 'positive'
-        })
-      }
-    }
+    // selectedActivity: function (newSelectedActivity, oldSelectedActivity) {
+    //   if (oldSelectedActivity === null) {
+    //     // Start segment
+    //     this.startSegment(newSelectedActivity)
+    //     this.$q.notify({
+    //       message: 'Activitée démarrée.',
+    //       color: 'positive'
+    //     })
+    //   } else {
+    //     // End segment
+    //     this.endSegment()
+    //     // Start segment
+    //     this.startSegment(newSelectedActivity)
+    //     this.$q.notify({
+    //       message: 'Activitée changée.',
+    //       color: 'positive'
+    //     })
+    //   }
+    // }
   }
 }
 </script>
