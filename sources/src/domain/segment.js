@@ -9,8 +9,12 @@ class SegmentFactory {
     color,
     icon,
     activity,
-    comment
+    comment,
+    ...rest
   }) {
+    if (rest !== null && JSON.stringify(rest) !== '{}') {
+      console.error(`Unknown properties ${JSON.stringify(rest)} for SegmentFactory.Create`)
+    }
     return {
       id: id ?? uid(),
       startedAt: startedAt ?? Date.now(),
@@ -30,8 +34,12 @@ class SegmentFactory {
     color,
     icon,
     activity,
-    comment
+    comment,
+    ...rest
   }) {
+    if (rest !== null && JSON.stringify(rest) !== '{}') {
+      console.error(`Unknown properties ${JSON.stringify(rest)} for SegmentFactory.Edit`)
+    }
     return {
       startedAt: startedAt ?? segment.startedAt,
       endedAt: endedAt ?? segment.endedAt,

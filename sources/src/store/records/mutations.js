@@ -24,8 +24,8 @@ export const mutations = {
     state.currentRecord = {
       segments: [],
       comment: '',
-      ...record,
-      startedAt: Date.now()
+      startedAt: Date.now(),
+      ...record
     }
   },
   [EDIT_RECORD] (state, record) {

@@ -19,6 +19,14 @@ export default {
     noresults: 'No results',
     optional: 'Optional'
   },
+  layout: {
+    'poweredbyquasar': 'Powered by Quasar {version}',
+    'exitlabel': 'Exit',
+    'madewithlove': 'Made with 💗',
+    'confirmquitmessage': 'A record is in progress, are you sure you still want to exit ?',
+    'quitlabel': 'Quit anyway',
+    'quitandsavelabel': 'Save and Quit'
+  },
   form: {
     activity: {
       create: {
@@ -59,7 +67,17 @@ export default {
     }
   },
   recorderpage: {
+    title: 'Recorder',
     nosegment: 'Activity not precised yet'
+  },
+  projectspage: {
+    title: 'Projects'
+  },
+  graphicspage: {
+    title: 'Graphics'
+  },
+  recordspage: {
+    title: 'Records'
   },
   settingspage: {
     title: 'Settings',

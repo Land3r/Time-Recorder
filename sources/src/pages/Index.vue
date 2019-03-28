@@ -16,7 +16,7 @@
       <q-step
         :name="1"
         :title="$t('homepage.step1.title')"
-        icon="settings"
+        icon="play_arrow"
         :done="step > 1"
       >
         {{$t('homepage.step1.details')}}
@@ -68,7 +68,7 @@
           ]"
           />
         <q-stepper-navigation>
-          <q-btn @click="step1Btn()" color="primary" :label="$t('homepage.step1.buttonlabel')" />
+          <q-btn @click="step1Btn()" color="primary" :label="$t('homepage.step1.buttonlabel')" icon="play_arrow" />
         </q-stepper-navigation>
       </q-step>
 
@@ -132,7 +132,7 @@ export default {
   data: function () {
     return {
       form: {
-        comment: null,
+        comment: '',
         project: null,
         activity: null
       },
@@ -148,6 +148,7 @@ export default {
         startedAt: Date.now(),
         comment: this.form.comment
       })
+      console.log('Pushing record start: ' + record.startedAt)
       this.startRecord(record)
       this.step = 2
     },
@@ -198,6 +199,7 @@ export default {
       if (newStep === 4) {
         let message
         if (this.form.project !== null && this.form.activity !== null) {
+          console.log('Pushing segment start: ' + this.currentRecord.startedAt)
           const segment = SegmentFactory.Create({
             startedAt: this.currentRecord.startedAt,
             project: { name: this.form.project.label, id: this.form.project.value },

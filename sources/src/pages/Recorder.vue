@@ -134,7 +134,6 @@ export default {
   },
   computed: {
     currentSegmentName: function () {
-      console.dir({ record: this.record, segment: this.segment })
       if (this.isRecording && this.segment !== null) {
         return `${this.segment.project.name}: ${this.segment.activity.name}`
       } else {

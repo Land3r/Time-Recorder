@@ -6,8 +6,12 @@ class RecordFactory {
     startedAt,
     endedAt,
     comment,
-    segments
+    segments,
+    ...rest
   }) {
+    if (rest !== null && JSON.stringify(rest) !== '{}') {
+      console.error(`Unknown properties ${JSON.stringify(rest)} for RecordFactory.Create`)
+    }
     return {
       id: id ?? uid(),
       startedAt: startedAt ?? Date.now(),
@@ -21,8 +25,12 @@ class RecordFactory {
     startedAt,
     endedAt,
     comment,
-    segments
+    segments,
+    ...rest
   }) {
+    if (rest !== null && JSON.stringify(rest) !== '{}') {
+      console.error(`Unknown properties ${JSON.stringify(rest)} for RecordFactory.Edit`)
+    }
     return {
       startedAt: startedAt ?? record.startedAt,
       endedAt: endedAt ?? record.endedAt,

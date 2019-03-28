@@ -16,7 +16,7 @@
           Time Recorder
         </q-toolbar-title>
 
-        <div>Using quasar v{{ $q.version }}</div>
+        <div>{{$t('layout.poweredbyquasar', {version: $q.version})}}</div>
           <q-btn flat round dense icon="settings" class="can-rotate on-hover-rotate-180">
             <q-menu
               transition-show="jump-down"
@@ -27,14 +27,14 @@
                   <q-item-section avatar>
                     <q-icon name="settings" />
                   </q-item-section>
-                  <q-item-section>Paramètres</q-item-section>
+                  <q-item-section>{{$t('settingspage.title')}}</q-item-section>
                 </q-item>
                 <q-separator />
                 <q-item clickable v-close-menu @click="requestCloseApplication()">
                   <q-item-section avatar>
                     <q-icon name="close" />
                   </q-item-section>
-                  <q-item-section>Exit</q-item-section>
+                  <q-item-section>{{$t('layout.exitlabel')}}</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
@@ -56,7 +56,7 @@
             <q-icon :name="getRecordIcon" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Enregisteur</q-item-label>
+            <q-item-label>{{$t('recorderpage.title')}}</q-item-label>
           </q-item-section>
         </q-item>
         <q-separator />
@@ -65,7 +65,7 @@
             <q-icon name="dashboard" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Accueil</q-item-label>
+            <q-item-label>{{$t('homepage.title')}}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" to="/projects">
@@ -73,7 +73,7 @@
             <q-icon name="business" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Projets</q-item-label>
+            <q-item-label>{{$t('projectspage.title')}}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" to="charts">
@@ -81,7 +81,7 @@
             <q-icon name="donut_small" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Graphiques</q-item-label>
+            <q-item-label>{{$t('graphicspage.title')}}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" to="/record">
@@ -89,7 +89,15 @@
             <q-icon name="business" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Enregistrement</q-item-label>
+            <q-item-label>{{$t('recordspage.title')}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" to="/temp">
+          <q-item-section avatar>
+            <q-icon name="business" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>TEMP</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -99,7 +107,7 @@
             <q-icon name="code" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Made with 💗</q-item-label>
+            <q-item-label>{{$t('layout.madewithlove')}}</q-item-label>
             <q-item-label caption>github.com/land3r/time-recorder</q-item-label>
           </q-item-section>
         </q-item>
@@ -113,13 +121,13 @@
       <q-card>
         <q-card-section class="row items-center">
           <div :class="getRecordStatusClass"></div>
-          <span class="q-ml-sm">Un enregistrement est en cours. Voulez vous vraiment quitter ?</span>
+          <span class="q-ml-sm">{{$t('layout.confirmquitmessage')}}</span>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="Annuler" v-close-dialog />
-          <q-btn flat label="Quitter" color="primary" @click="closeApplication()" v-close-dialog />
-          <q-btn flat label="Quitter et enregister" color="primary" @click="saveAndCloseApplication()" v-close-dialog />
+          <q-btn flat :label="$t('buttons.cancel')" v-close-dialog />
+          <q-btn flat :label="$t('layout.quitlabel')" color="primary" @click="closeApplication()" v-close-dialog />
+          <q-btn flat :label="$t('layout.quitandsavelabel')" color="primary" @click="saveAndCloseApplication()" v-close-dialog />
         </q-card-actions>
       </q-card>
     </q-dialog>

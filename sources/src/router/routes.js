@@ -4,13 +4,24 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
+        path: 'temp',
+        name: 'Temp',
+        component: () => import('pages/Temp.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'homepage', icon: 'home', to: '/index' },
+            { id: 1, label: 'temppage', icon: 'timer' }
+          ]
+        }
+      },
+      {
         path: 'recorder',
         name: 'Recorder',
         component: () => import('pages/Recorder.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
-            { id: 1, label: 'Enregistreur', icon: 'timer' }
+            { id: 0, label: 'homepage', icon: 'home', to: '/index' },
+            { id: 1, label: 'recorderpage', icon: 'timer' }
           ]
         }
       },
@@ -20,8 +31,8 @@ const routes = [
         component: () => import('pages/Record.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
-            { id: 1, label: 'Enregistrement', icon: 'timer' }
+            { id: 0, label: 'homepage', icon: 'home', to: '/index' },
+            { id: 1, label: 'records', icon: 'timer' }
           ]
         }
       },
@@ -31,8 +42,8 @@ const routes = [
         component: () => import('pages/Projects.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
-            { id: 1, label: 'Projets', icon: 'business' }
+            { id: 0, label: 'homepage', icon: 'home', to: '/index' },
+            { id: 1, label: 'projects', icon: 'business' }
           ]
         }
       },
@@ -42,8 +53,8 @@ const routes = [
         component: () => import('pages/Activities.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
-            { id: 1, label: 'Activités', icon: 'business' }
+            { id: 0, label: 'homepage', icon: 'home', to: '/index' },
+            { id: 1, label: 'activities', icon: 'business' }
           ]
         }
       },
@@ -53,8 +64,8 @@ const routes = [
         component: () => import('pages/Charts.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
-            { id: 1, label: 'Graphiques', icon: 'donut_small' }
+            { id: 0, label: 'homepage', icon: 'home', to: '/index' },
+            { id: 1, label: 'graphicspage', icon: 'donut_small' }
           ]
         }
       },
@@ -64,8 +75,8 @@ const routes = [
         component: () => import('pages/Settings.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home', to: '/index' },
-            { id: 1, label: 'Settings', icon: 'settings' }
+            { id: 0, label: 'homepage', icon: 'home', to: '/index' },
+            { id: 1, label: 'settingspage', icon: 'settings' }
           ]
         }
       },
@@ -75,7 +86,7 @@ const routes = [
         component: () => import('pages/Index.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home' }
+            { id: 0, label: 'homepage', icon: 'home' }
           ]
         }
       },
@@ -85,7 +96,7 @@ const routes = [
         component: () => import('pages/Index.vue'),
         meta: {
           breadcrumbs: [
-            { id: 0, label: 'Accueil', icon: 'home' }
+            { id: 0, label: 'homepage', icon: 'home' }
           ]
         }
       }

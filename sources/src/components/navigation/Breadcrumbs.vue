@@ -11,7 +11,7 @@
       <q-breadcrumbs-el
         v-for="item in items"
         :key="item.id"
-        :label="item.label"
+        :label="$t(`${item.label}.title`)"
         :icon="item.icon"
         :to="item.to"
       />

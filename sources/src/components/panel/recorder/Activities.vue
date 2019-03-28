@@ -132,17 +132,22 @@ export default {
         icon: activity.icon,
         activity: { name: activity.name, id: activity.id }
       })
-      console.log(segment)
       this.editSegment(segment)
     },
     changeSegmentMenuBtn: function () {
       this.endSegment()
+      const project = this.contextProject
+      const activity = this.contextActivity
       const segment = SegmentFactory.Create({
-
+        project: { name: project.name, id: project.id },
+        color: project.color,
+        icon: activity.icon,
+        activity: { name: activity.name, id: activity.id }
       })
       this.startSegment(segment)
     },
     onProjectDblClick: function (activity) {
+      // If no recording yet -> Create record and segment.
       if (!this.isRecording) {
         this.$q.dialog({
           title: 'Démarrer un enregistrement ?',
@@ -169,6 +174,21 @@ export default {
           })
           this.startSegment(segment)
         }).onCancel(() => {})
+      } else {
+        // If recording and a current segment -> Change segment.
+        if (this.segment !== null) {
+
+        } else {
+          // If recording and not segment yet -> Create segment
+        }
+        const segment = SegmentFactory.Create({
+          startedAt: this.record.startedAt,
+          project: { name: this.contextProject.name, id: this.contextProject.id },
+          color: this.contextProject.color,
+          icon: this.contextActivity.icon,
+          activity: { name: this.contextActivity.name, id: this.contextActivity.id }
+        })
+        this.startSegment(segment)
       }
     },
     toggleRecording: function () {
@@ -190,7 +210,7 @@ export default {
       }
     },
     getActivityClass: function (activity) {
-      if (this.segment?.id === activity.id) {
+      if (this.segment?.activity.id === activity.id) {
         return `bg-positive`
       } else {
         return ``

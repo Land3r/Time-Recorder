@@ -19,6 +19,31 @@ export default {
     noresults: 'Pas de résultats',
     optional: 'Optionnel'
   },
+  layout: {
+    'poweredbyquasar': 'Propulsé par Quasar {version}',
+    'exitlabel': 'Quitter',
+    'madewithlove': 'Fait avec 💗',
+    'confirmquitmessage': 'Un enregistrement est en cours. Voulez vous vraiment quitter ?',
+    'quitlabel': 'Quitter',
+    'quitandsavelabel': 'Sauvegarder et Quitter'
+  },
+  form: {
+    activity: {
+      create: {
+        title: 'Créer une activité',
+        namelabel: 'Nom',
+        labellabel: 'Label',
+        iconlabel: 'Icône'
+      },
+      edit: {
+        title: 'Modifier une activité',
+        namelabel: 'Nom',
+        labellabel: 'Label',
+        iconlabel: 'Icône'
+      },
+      delete: 'Voulez vous vraiment supprimer l\'activité <strong>{name}</strong> ?'
+    }
+  },
   homepage: {
     errorisrecording: 'Un enregistrement est déjà en cours',
     title: 'Accueil',
@@ -42,7 +67,17 @@ export default {
     }
   },
   recorderpage: {
+    title: 'Enregistreur',
     nosegment: 'Activité non précisé'
+  },
+  projectspage: {
+    title: 'Projets'
+  },
+  graphicspage: {
+    title: 'Graphiques'
+  },
+  recordspage: {
+    title: 'Enregistrements'
   },
   settingspage: {
     title: 'Paramètres',
