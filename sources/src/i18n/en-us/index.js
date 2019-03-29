@@ -68,7 +68,25 @@ export default {
   },
   recorderpage: {
     title: 'Recorder',
-    nosegment: 'Activity not precised yet'
+    nosegment: 'Activity not precised yet',
+    activity: {
+      projects: {
+        title: 'Projects'
+      },
+      activities: {
+        title: 'Activities',
+        selectprojectfirst: 'Please select a project first.'
+      },
+      menu: {
+        changeActivitylabel: 'Change activity',
+        editActivityLabel: 'Edit current activity',
+        cancelActivityLabel: 'Cancel current activity'
+      },
+      messages: {
+        startSegmentWithNoRecordTitle: 'Start a record ?',
+        startSegmentWithNoRecordMessage: 'No record is started yet. Do you want to start a record on activity {project}: {activity} ?'
+      }*
+    }
   },
   projectspage: {
     title: 'Projects'

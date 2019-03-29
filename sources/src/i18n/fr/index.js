@@ -68,7 +68,25 @@ export default {
   },
   recorderpage: {
     title: 'Enregistreur',
-    nosegment: 'Activité non précisé'
+    nosegment: 'Activité non précisé',
+    activity: {
+      projects: {
+        title: 'Projets'
+      },
+      activities: {
+        title: 'Activités',
+        selectprojectfirst: 'Sélectionnez un projet avant de pouvoir choisr une activité.'
+      },
+      menu: {
+        changeActivitylabel: 'Changer d\'activité',
+        editActivityLabel: 'Modifier activité courante',
+        cancelActivityLabel: 'Annuler activité courante'
+      },
+      messages: {
+        startSegmentWithNoRecordTitle: 'Démarrer un enregistrement ?',
+        startSegmentWithNoRecordMessage: 'Aucun enregistrement n\'est pour l\'instant demarré. Voulez vous démarrer un enregistrement sur l\'activité {project}: {activity} ?'
+      }
+    }
   },
   projectspage: {
     title: 'Projets'
