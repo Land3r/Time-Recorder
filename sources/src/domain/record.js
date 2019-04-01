@@ -1,4 +1,4 @@
-import { uid } from 'quasar'
+import { uuidv4 } from 'uuid/v4'
 
 class RecordFactory {
   static Create ({
@@ -13,7 +13,7 @@ class RecordFactory {
       console.error(`Unknown properties ${JSON.stringify(rest)} for RecordFactory.Create`)
     }
     return {
-      id: id ?? uid(),
+      id: id ?? uuidv4,
       startedAt: startedAt ?? Date.now(),
       endedAt: endedAt ?? null,
       comment: comment ?? '',

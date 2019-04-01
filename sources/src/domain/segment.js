@@ -1,4 +1,4 @@
-import { uid } from 'quasar'
+import { uuidv4 } from 'uuid/v4'
 
 class SegmentFactory {
   static Create ({
@@ -16,7 +16,7 @@ class SegmentFactory {
       console.error(`Unknown properties ${JSON.stringify(rest)} for SegmentFactory.Create`)
     }
     return {
-      id: id ?? uid(),
+      id: id ?? uuidv4,
       startedAt: startedAt ?? Date.now(),
       endedAt: endedAt ?? null,
       project: project ?? { name: null, id: null },

@@ -6,6 +6,8 @@ import {
   RESET_STATE, IMPORT_STATE
 } from '../types'
 import initialState from './state'
+import { SegmentFactory } from '../../domain/segment'
+import { RecordFactory } from '../../domain/record'
 
 export const mutations = {
   [RESET_STATE] (state) {
@@ -21,51 +23,77 @@ export const mutations = {
   },
   [START_RECORD] (state, record) {
     state.isRecording = true
-    state.currentRecord = {
-      segments: [],
-      comment: '',
-      startedAt: Date.now(),
-      ...record
-    }
+
+    // Defaut record merged with props of record
+    const newRecord = RecordFactory.Edit(
+      RecordFactory.Create({
+        startedAt: Date.now()
+      }), {
+        ...record
+      })
+    state.currentRecord = { ...newRecord }
   },
   [EDIT_RECORD] (state, record) {
-    state.currentRecord = {
-      ...state.currentRecord,
-      ...record
-    }
+    // Current record merged with props of record
+    const editedRecord = RecordFactory.Edit(
+      { ...state.currentRecord },
+      {
+        ...record
+      })
+
+    state.currentRecord = { ...editedRecord }
   },
   [END_RECORD] (state) {
     let endedAt = Date.now()
-    state.records.push({
-      ...state.currentRecord,
-      endedAt: endedAt
-    })
+
+    const editedRecord = RecordFactory.Edit(
+      { ...state.currentRecord },
+      {
+        endedAt: endedAt
+      }
+    )
+    state.records.push({ ...editedRecord })
     state.isRecording = false
     state.currentRecord = null
   },
   [START_SEGMENT] (state, segment) {
-    let startedAt = Date.now()
-    state.currentSegment = {
-      ...segment,
-      startedAt: startedAt
-    }
+    const startedAt = Date.now()
+
+    // Defaut segment merged with props of segment
+    const newSegment = SegmentFactory.Edit(
+      SegmentFactory.Create({
+        startedAt: startedAt
+      }),
+      { ...segment }
+    )
+    state.currentSegment = { ...newSegment }
   },
   [EDIT_SEGMENT] (state, segment) {
-    state.currentSegment = {
-      ...state.currentSegment,
-      ...segment
-    }
+    // Current record merged with props of record
+    const editedSegment = SegmentFactory.Edit(
+      { ...state.currentSegment },
+      {
+        ...segment
+      })
+    state.currentSegment = { ...editedSegment }
   },
   [END_SEGMENT] (state) {
     let endedAt = Date.now()
-    state.currentSegment = {
-      ...state.currentSegment,
-      endedAt: endedAt
+
+    const editedSegment = RecordFactory.Edit(
+      { ...state.currentSegment },
+      {
+        endedAt: endedAt
+      }
+    )
+    if (state.currentRecord && state.currentRecord.segments) {
+      state.currentRecord.segments.push({ ...editedSegment })
+    } else {
+      console.error('Cannot save segment because no active record was found')
     }
-    state.currentRecord.segments.push(state.currentSegment)
     state.currentSegment = null
   },
   [CANCEL_SEGMENT] (state) {
-    state.currenSegment = null
+    state.currentSegment = null
   }
 }

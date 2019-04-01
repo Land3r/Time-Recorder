@@ -85,7 +85,7 @@ export default {
       messages: {
         startSegmentWithNoRecordTitle: 'Start a record ?',
         startSegmentWithNoRecordMessage: 'No record is started yet. Do you want to start a record on activity {project}: {activity} ?'
-      }*
+      }
     }
   },
   projectspage: {

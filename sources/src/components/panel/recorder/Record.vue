@@ -4,7 +4,7 @@
     <div class="col q-px-xs">
       <h3>Commentaire de l'enregistrement</h3>
       <q-editor
-       v-model="comment"
+       v-model="form.comment"
        min-height="5rem"
        :toolbar="[
         ['left', 'center', 'right', 'justify'],
@@ -51,7 +51,7 @@
     </div>
   </div>
   <q-card-actions>
-    <q-btn @click="saveComment" color="primary" label='Sauvegarder' :disable="this.comment === this.currentRecord.comment"></q-btn>
+    <q-btn @click="saveComment" color="primary" label='Sauvegarder' :disable="isSaveBtnDisable"></q-btn>
   </q-card-actions>
 </div>
 </template>
@@ -69,7 +69,9 @@ export default {
   },
   data: function () {
     return {
-      comment: ''
+      form: {
+        comment: ''
+      }
     }
   },
   methods: {
@@ -87,7 +89,7 @@ export default {
           persistent: true
         }).onOk(() => {
           const record = {
-            comment: this.comment
+            comment: this.form.comment
           }
 
           this.startRecord(record)
@@ -100,7 +102,7 @@ export default {
         })
       } else {
         const record = {
-          comment: this.comment
+          comment: this.form.comment
         }
 
         this.editRecord(record)
@@ -116,13 +118,16 @@ export default {
     ])
   },
   computed: {
+    isSaveBtnDisable: function () {
+      return (this.form.comment === this.currentRecord?.comment)
+    },
     ...mapState('records', [
       'isRecording',
       'currentRecord'
     ])
   },
   created: function () {
-    this.comment = this.currentRecord?.comment ?? ''
+    this.form.comment = this.currentRecord?.comment ?? ''
   }
 }
 </script>
