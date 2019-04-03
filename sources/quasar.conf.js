@@ -9,7 +9,8 @@ module.exports = function (ctx) {
       'quasar-lang-pack', // For internalisation of quasat components.
       'axios', // For HTTP request.
       'vuelidate', // For form validation.
-      'timers' // For vue-timers
+      'timers', // For vue-timers
+      'dayspan' // For vuetify and dayspan-vuetify
     ],
 
     css: [
