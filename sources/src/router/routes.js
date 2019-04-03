@@ -59,6 +59,17 @@ const routes = [
         }
       },
       {
+        path: 'calendar',
+        name: 'Calendar',
+        component: () => import('pages/Calendar.vue'),
+        meta: {
+          breadcrumbs: [
+            { id: 0, label: 'homepage', icon: 'home', to: '/index' },
+            { id: 1, label: 'Calendar', icon: 'event' }
+          ]
+        }
+      },
+      {
         path: 'charts',
         name: 'Charts',
         component: () => import('pages/Charts.vue'),

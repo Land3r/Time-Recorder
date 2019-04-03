@@ -19,7 +19,6 @@
     </q-editor>
   </div>
   <div>
-    <ds-calendar-app :calendar="calendar"></ds-calendar-app>
   </div>
 </div>
 </template>
@@ -30,8 +29,6 @@
 
 <script>
 import { mapState } from 'vuex'
-// import DaySpanVuetify from 'dayspan-vuetify'
-import { Calendar } from 'dayspan'
 
 export default {
   name: 'TempPage',
@@ -41,8 +38,7 @@ export default {
     return {
       record: '',
       segment: '',
-      records: '',
-      calendar: Calendar.months()
+      records: ''
     }
   },
   methods: {
