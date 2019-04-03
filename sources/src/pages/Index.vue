@@ -5,8 +5,6 @@
         {{$t('homepage.title')}}
       </h1>
     </div>
-    <i18n>
-    </i18n>
     <q-stepper
       v-model="step"
       vertical
