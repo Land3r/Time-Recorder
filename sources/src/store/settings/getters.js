@@ -3,3 +3,10 @@ export function getState (state) {
     settings: state
   }
 }
+
+export function getCalendarSettings (state) {
+  return {
+    ...state.calendar,
+    locale: state.lang
+  }
+}

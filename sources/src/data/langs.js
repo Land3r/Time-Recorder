@@ -1,5 +1,3 @@
-import { i18n } from '../boot/i18n'
-
 export const Lang = {
   fr: 'fr',
   en: 'en-us'
@@ -7,12 +5,12 @@ export const Lang = {
 
 export const LangOptions = [
   {
-    label: i18n.t('langs.fr'),
+    label: 'langs.fr',
     value: Lang.fr,
     icon: 'fr'
   },
   {
-    label: i18n.t('langs.en'),
+    label: 'langs.en',
     value: Lang.en,
     icon: 'en'
   }

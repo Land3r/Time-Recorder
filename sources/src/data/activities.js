@@ -5,11 +5,11 @@ export const ActivityType = {
 
 export const ActivityTypeOption = [
   {
-    name: ActivityType.PRODUCTIVE,
-    label: 'Productif'
+    label: 'Productif',
+    value: ActivityType.PRODUCTIVE
   },
   {
-    name: ActivityType.NO_PRODUCTIVE,
-    label: 'Non productif'
+    label: 'Non productif',
+    name: ActivityType.NO_PRODUCTIVE
   }
 ]

@@ -15,6 +15,15 @@ export default {
     fr: 'French',
     en: 'English'
   },
+  calendar: {
+    page: {
+      years: 'Years',
+      year: 'Year',
+      month: 'Month',
+      week: 'Week',
+      day: 'Day'
+    }
+  },
   common: {
     noresults: 'No results',
     optional: 'Optional'
@@ -94,6 +103,9 @@ export default {
   graphicspage: {
     title: 'Graphics'
   },
+  calendarpage: {
+    title: 'Calendar'
+  },
   recordspage: {
     title: 'Records'
   },
@@ -124,6 +136,17 @@ export default {
         label: 'No activities yet.',
         sublabel: 'Default activities can be added to new project on creation'
       }
+    },
+    calendar: {
+      expansiontitle: 'Calendar',
+      title: 'Calendar',
+      defaultviewlabel: 'Default view',
+      disableviewslabel: 'Disabled views',
+      hideweekendslabel: 'Hide weekends',
+      showtimelabel: 'Show time',
+      timefromlabel: 'Start hour of the day',
+      timetolabel: 'End hour of the day',
+      startweekonsundaylabel: 'Start week with Sunday'
     },
     recorder: {
       expansiontitle: 'Recorder',

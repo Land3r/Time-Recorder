@@ -1,4 +1,5 @@
 import { ObjectiveType } from '../../data/objectives'
+import { CalendarPage } from '../../data/calendar'
 
 export default () => ({
   username: '',
@@ -12,6 +13,15 @@ export default () => ({
     watch_unlock: true,
     watch_ac: false,
     watch_battery: false
+  },
+  calendar: {
+    defaultView: CalendarPage.WEEK,
+    disableViews: [CalendarPage.YEARS, CalendarPage.YEAR],
+    hideWeekends: true,
+    showTime: true,
+    timeFrom: 60 * 8,
+    timeTo: 60 * 20,
+    startWeekOnSunday: false
   },
   defaultActivities: [],
   objective: {

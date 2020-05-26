@@ -1,4 +1,5 @@
 // Configuration for your app
+let path = require('path')
 
 module.exports = function (ctx) {
   return {
@@ -69,7 +70,9 @@ module.exports = function (ctx) {
         'QSlider',
         'QStepper',
         'QStep',
-        'QStepperNavigation'
+        'QStepperNavigation',
+        'QTime',
+        'QPopupProxy'
       ],
 
       directives: [
@@ -98,19 +101,37 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       extendWebpack (cfg) {
+        // Add eslint
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /node_modules/
         })
+        // Add i18n component
         cfg.module.rules.push({
           resourceQuery: /blockType=i18n/,
           use: [
-            {loader: '@kazupon/vue-i18n-loader'},
-            {loader: 'yaml-loader'}
+            { loader: '@kazupon/vue-i18n-loader' },
+            { loader: 'yaml-loader' }
           ]
         })
+        // Add webpack aliases
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias,
+          '@': path.resolve(__dirname, 'src'),
+          'assets': path.resolve(__dirname, 'src/assets'),
+          'boot': path.resolve(__dirname, 'src/boot'),
+          'components': path.resolve(__dirname, 'src/components'),
+          'data': path.resolve(__dirname, 'src/data'),
+          'domain': path.resolve(__dirname, 'src/domain'),
+          'helpers': path.resolve(__dirname, 'src/helpers'),
+          'i18n': path.resolve(__dirname, 'src/i18n'),
+          'layouts': path.resolve(__dirname, 'src/layouts'),
+          'pages': path.resolve(__dirname, 'src/pages'),
+          'router': path.resolve(__dirname, 'src/router'),
+          'store': path.resolve(__dirname, 'src/store')
+        }
       }
     },
 

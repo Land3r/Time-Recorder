@@ -2,6 +2,7 @@ import {
   SET_USERNAME,
   SET_LANG,
   SET_DATEFORMAT,
+  SET_CALENDAR,
   EDIT_EVENTS, TOGGLE_EVENT,
   ADD_DEFAULT_ACTIVITY, EDIT_DEFAULT_ACTIVITY, REMOVE_DEFAULT_ACTIVITY, SET_DEFAULT_ACTIVITIES,
   SET_OBJECTIVE
@@ -29,6 +30,10 @@ export async function setLang (context, lang) {
 
 export function setDateFormat (context, dateFormat) {
   context.commit(SET_DATEFORMAT, dateFormat)
+}
+
+export function setCalendar (context, calendar) {
+  context.commit(SET_CALENDAR, calendar)
 }
 
 export function editEvents (context, events) {

@@ -15,6 +15,15 @@ export default {
     fr: 'Français',
     en: 'Anglais'
   },
+  calendar: {
+    page: {
+      years: 'Années',
+      year: 'Année',
+      month: 'Mois',
+      week: 'Semaine',
+      day: 'Jour'
+    }
+  },
   common: {
     noresults: 'Pas de résultats',
     optional: 'Optionnel'

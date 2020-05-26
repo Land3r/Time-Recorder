@@ -30,3 +30,43 @@ h3
   height: 20px;
   border-radius: 50%
 }
+
+// Calendar style
+// Calendar header background color
+.vuecal__menu {
+  background: linear-gradient(145deg, $theme_color1 11%, $theme_color2 45%)
+  // Calendar 'Year', 'Month', 'Week', 'Day' headings
+  li {
+    border-bottom-color: #fff
+    color: #fff
+  }
+  // Selected Calendar heading
+  li.active {
+    background-color: rgba(255, 255, 255, 0.15)
+  }
+}
+// Calendar title
+.vuecal__title {
+  background-color: #027be34a
+}
+// Current day title
+.vuecal__heading.today {
+  font-weight: bold
+}
+// Calendar day of today
+.vuecal__cell.today, .vuecal__cell.current {
+  background-color: #027be320 !important
+}
+// Selected day of the calendar
+.vuecal:not(.vuecal--day-view) .vuecal__cell.selected {
+  background-color: #027be350
+}
+// Border of the selected day
+.vuecal__cell.selected:before {
+  border-color: $theme_color2
+}
+// Calendar event
+.vuecal__event {
+  background-color: $theme_color1 !important
+  color:#fff !important
+}

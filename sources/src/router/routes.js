@@ -65,7 +65,7 @@ const routes = [
         meta: {
           breadcrumbs: [
             { id: 0, label: 'homepage', icon: 'home', to: '/index' },
-            { id: 1, label: 'Calendar', icon: 'event' }
+            { id: 1, label: 'calendarpage', icon: 'event' }
           ]
         }
       },

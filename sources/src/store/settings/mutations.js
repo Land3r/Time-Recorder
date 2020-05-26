@@ -2,6 +2,7 @@ import {
   SET_USERNAME,
   SET_LANG,
   SET_DATEFORMAT,
+  SET_CALENDAR,
   EDIT_EVENTS, TOGGLE_EVENT,
   ADD_DEFAULT_ACTIVITY, EDIT_DEFAULT_ACTIVITY, REMOVE_DEFAULT_ACTIVITY, SET_DEFAULT_ACTIVITIES,
   SET_OBJECTIVE
@@ -31,6 +32,9 @@ export const mutations = {
   },
   [SET_DATEFORMAT] (state, dateFormat) {
     state.dateFormat = dateFormat
+  },
+  [SET_CALENDAR] (state, calendar) {
+    state.calendar = { ...calendar }
   },
   [EDIT_EVENTS] (state, events) {
     state.events = {

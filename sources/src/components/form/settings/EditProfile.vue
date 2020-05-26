@@ -19,6 +19,9 @@
             @blur="$v.form.lang.$touch"
             :error="$v.form.lang.$error"
           >
+            <template v-slot:selected-item="scope">
+              {{$t(scope.opt.label)}}
+            </template>
             <template v-slot:prepend>
               <img
                 height="60%"
@@ -34,7 +37,7 @@
                   <q-img :src="getFlagIcon(scope.opt.icon)" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item-label v-html="scope.opt.label" />
+                  <q-item-label v-html="$t(scope.opt.label)" />
                 </q-item-section>
               </q-item>
             </template>

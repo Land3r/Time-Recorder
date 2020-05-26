@@ -4,6 +4,8 @@ export const SET_LANG = 'SET_LANG'
 
 export const SET_DATEFORMAT = 'SET_DATEFORMAT'
 
+export const SET_CALENDAR = 'EDIT_CALENDAR'
+
 export const EDIT_EVENTS = 'EDIT_EVENTS'
 export const TOGGLE_EVENT = 'TOGGLE_EVENT'
 

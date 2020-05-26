@@ -92,6 +92,14 @@
             <q-item-label>{{$t('recordspage.title')}}</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item clickable tag="a" to="/calendar">
+          <q-item-section avatar>
+            <q-icon name="event" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{$t('calendarpage.title')}}</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable tag="a" to="/temp">
           <q-item-section avatar>
             <q-icon name="business" />
